@@ -1,4 +1,4 @@
-﻿const verifiedDate = "2026-07-15";
+﻿const verifiedDate = "2026-07-16";
 
 const official = {
   main: "https://www.lzu.edu.cn/",
@@ -102,7 +102,25 @@ const guideItems = [
     tag: "生活",
     summary: "快递站点、营业时间和取件方式会随校区与学期调整。建议按校区整理地址、导航、常见快递和大件行李处理。",
     points: ["寄行李前确认收件地址格式", "到校高峰期取件排队较久", "大件、贵重件和生鲜件单独备注"],
+    links: [{ label: "后勤服务", href: official.hq }, { label: "官方校园地图", href: official.map }]  },
+  {
+    id: "shuttle",
+    title: "通勤出行",
+    category: "life",
+    tag: "生活",
+    summary: "兰州大学有榆中校区和城关校区两个校区，之间每天有校车通勤。新生需要提前了解校区位置、通勤时间和校车安排。",
+    points: ["榆中校区在榆中县夏官营镇，距市区约 50 公里，是本科生的主要学习生活区", "城关校区在兰州市城关区，紧邻市区，以研究生和部分学院为主", "校车每天往返，约 1 小时车程，刷校园卡乘车", "高峰期（周五下午、周日傍晚）校车座位紧张，建议提前排队", "跨校区上课的同学预留充足通勤时间，注意末班车时刻"],
     links: [{ label: "后勤服务", href: official.hq }, { label: "官方校园地图", href: official.map }]
+  },
+  {
+    id: "overview",
+    title: "两大校区概览",
+    category: "campus",
+    tag: "校园",
+    summary: "快速了解榆中校区和城关校区的区别，帮助新生快速定位自己所属学院和入住校区。",
+    points: ["榆中校区：本科生主校区。有凌云楼、天山堂等主要教学楼，昆仑堂图书馆、芝兰苑/玉树苑食堂", "城关校区：研究生和部分学院所在地。有观云楼、齐云楼等教学楼，积石堂图书馆、丹桂苑食堂", "各学院具体分布可以查学院官网或报到通知", "榆中校区地址：甘肃省兰州市榆中县夏官营镇；城关校区地址：甘肃省兰州市城关区天水南路 222 号"],
+    links: [{ label: "兰州大学官网", href: official.main }, { label: "官方校园地图", href: official.map }]
+  }
   }
 ];
 
@@ -116,7 +134,9 @@ const resourceLinks = [
   ["后勤服务", "宿舍、食堂、维修、生活服务相关入口", official.hq],
   ["个人工作台", "统一身份认证后使用的校内服务入口", official.my],
   ["图书馆", "入馆、借阅、数据库和学习空间", official.lib],
-  ["本科招生", "录取、新生相关招生信息入口", official.zsb]
+  ["本科招生", "录取、新生相关招生信息入口", official.zsb],
+  ["榆中校区地址", "甘肃省兰州市榆中县夏官营镇 兰州大学榆中校区", official.map],
+  ["城关校区地址", "甘肃省兰州市城关区天水南路 222 号 兰州大学城关校区", official.map]
 ];
 
 const cardGrid = document.querySelector("#cardGrid");

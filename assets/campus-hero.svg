@@ -1,71 +1,226 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 720" role="img" aria-labelledby="title desc">
-  <title id="title">Lanzhou University freshman guide hero artwork</title>
-  <desc id="desc">A warm campus walkway scene with buildings, trees, students and distant hills.</desc>
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 720" role="img" aria-labelledby="hero-title hero-desc">
+  <title id="hero-title">兰州大学校园全景</title>
+  <desc id="hero-desc">祁连山脉远景下的兰州大学校园，秋日银杏金黄，学生漫步其间</desc>
   <defs>
-    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#dceeff"/>
-      <stop offset="0.55" stop-color="#fff4d9"/>
-      <stop offset="1" stop-color="#f4caa0"/>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a7fb5"/>
+      <stop offset="0.35" stop-color="#86b9d8"/>
+      <stop offset="0.6" stop-color="#c9dbe8"/>
+      <stop offset="0.78" stop-color="#eddbc0"/>
+      <stop offset="1" stop-color="#d4a56e"/>
+    </linearGradient>
+    <linearGradient id="mtn1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6d8299"/>
+      <stop offset="1" stop-color="#8b9eb3"/>
+    </linearGradient>
+    <linearGradient id="mtn2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8b7259"/>
+      <stop offset="1" stop-color="#a08568"/>
     </linearGradient>
     <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#d9ecdc"/>
-      <stop offset="1" stop-color="#7aa78d"/>
+      <stop offset="0" stop-color="#b5c8a3"/>
+      <stop offset="0.15" stop-color="#7fa56c"/>
+      <stop offset="0.5" stop-color="#598459"/>
+      <stop offset="1" stop-color="#3d6b3d"/>
     </linearGradient>
     <linearGradient id="path" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ead8bd"/>
-      <stop offset="1" stop-color="#b98c68"/>
+      <stop offset="0" stop-color="#d4c4a8"/>
+      <stop offset="1" stop-color="#b6956c"/>
+    </linearGradient>
+    <linearGradient id="river" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#a3b8cc" stop-opacity=".6"/>
+      <stop offset="0.5" stop-color="#7b9bb5" stop-opacity=".8"/>
+      <stop offset="1" stop-color="#a3b8cc" stop-opacity=".6"/>
+    </linearGradient>
+    <linearGradient id="bldg1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c0392b"/>
+      <stop offset="1" stop-color="#922b21"/>
+    </linearGradient>
+    <linearGradient id="bldg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2c5f8a"/>
+      <stop offset="1" stop-color="#1a3f5c"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe58f"/>
+      <stop offset="1" stop-color="#f5b342"/>
     </linearGradient>
   </defs>
   <rect width="1440" height="720" fill="url(#sky)"/>
-  <circle cx="1180" cy="130" r="86" fill="#ffd681" opacity=".85"/>
-  <path d="M0 320 C190 260 325 340 520 290 C770 225 900 330 1115 270 C1245 235 1340 245 1440 205 L1440 720 L0 720 Z" fill="#b9986e" opacity=".26"/>
-  <path d="M0 390 C230 315 390 410 610 345 C820 285 975 380 1190 315 C1300 280 1375 275 1440 255 L1440 720 L0 720 Z" fill="#806c5d" opacity=".16"/>
-  <rect y="430" width="1440" height="290" fill="url(#ground)"/>
-  <path d="M505 430 L916 430 L1210 720 L190 720 Z" fill="url(#path)"/>
-  <path d="M660 430 L730 720" stroke="#f6e8d6" stroke-width="6" opacity=".55"/>
-  <path d="M760 430 L700 720" stroke="#f6e8d6" stroke-width="6" opacity=".45"/>
-  <g opacity=".92">
-    <rect x="146" y="250" width="230" height="180" rx="8" fill="#a24946"/>
-    <rect x="178" y="285" width="35" height="45" fill="#ffdca8"/>
-    <rect x="235" y="285" width="35" height="45" fill="#ffdca8"/>
-    <rect x="292" y="285" width="35" height="45" fill="#ffdca8"/>
-    <rect x="178" y="350" width="35" height="52" fill="#f2c788"/>
-    <rect x="235" y="350" width="35" height="52" fill="#f2c788"/>
-    <rect x="292" y="350" width="35" height="52" fill="#f2c788"/>
-    <path d="M122 250 L260 175 L400 250 Z" fill="#7e3433"/>
+
+  <!-- Sun -->
+  <circle cx="1200" cy="100" r="70" fill="url(#sun)" opacity=".9"/>
+  <circle cx="1200" cy="100" r="90" fill="#ffe58f" opacity=".12"/>
+
+  <!-- Distant Qilian Mountains -->
+  <path d="M0 245 C80 190 140 165 220 180 C300 195 340 170 420 160 C500 150 560 175 640 185 C720 195 780 170 860 155 C940 140 1000 165 1080 175 C1160 185 1220 160 1300 170 C1380 180 1420 190 1440 200 L1440 245 Z" fill="url(#mtn1)" opacity=".5"/>
+  <path d="M0 265 C60 220 130 195 200 210 C280 225 320 200 400 190 C480 180 540 205 620 215 C700 225 760 200 840 190 C920 180 980 200 1060 210 C1140 220 1200 200 1280 210 C1360 220 1400 230 1440 235 L1440 265 Z" fill="url(#mtn1)" opacity=".45"/>
+
+  <!-- Near hills with vegetation -->
+  <path d="M0 320 C120 280 200 295 320 300 C440 305 500 280 600 290 C700 300 780 285 880 280 C980 275 1050 290 1150 295 C1250 300 1320 285 1440 290 L1440 370 Z" fill="url(#mtn2)" opacity=".4"/>
+
+  <!-- Yellow River -->
+  <path d="M0 355 C200 340 350 370 500 358 C650 346 780 365 950 355 C1120 345 1250 362 1440 350 L1440 380 C1250 392 1120 375 950 385 C780 395 650 375 500 388 C350 400 200 370 0 385 Z" fill="url(#river)"/>
+
+  <!-- Ground -->
+  <rect y="390" width="1440" height="330" fill="url(#ground)"/>
+
+  <!-- Campus path -->
+  <path d="M520 390 C560 430 600 460 660 480 C720 500 790 510 860 520 C930 530 980 560 1020 600 L1020 720" fill="none" stroke="url(#path)" stroke-width="160" opacity=".5"/>
+  <path d="M520 390 C560 430 600 460 660 480 C720 500 790 510 860 520 C930 530 980 560 1020 600 L1020 720" fill="none" stroke="#dcc9ac" stroke-width="60" opacity=".6"/>
+  <path d="M520 390 C560 430 600 460 660 480 C720 500 790 510 860 520 C930 530 980 560 1020 600 L1020 720" fill="none" stroke="#f0e4cc" stroke-width="20" opacity=".55"/>
+
+  <!-- Side paths -->
+  <path d="M660 480 C640 530 610 580 580 630 L480 720" fill="none" stroke="#c9b48f" stroke-width="30" opacity=".4"/>
+  <path d="M860 520 C890 570 930 620 980 660 L1080 720" fill="none" stroke="#c9b48f" stroke-width="30" opacity=".4"/>
+
+  <!-- LZU Main Building - Red brick with columns -->
+  <g transform="translate(160, 220)">
+    <rect x="0" y="0" width="240" height="170" rx="4" fill="url(#bldg1)"/>
+    <!-- Roof -->
+    <path d="M-15 0 L120 -45 L255 0 Z" fill="#7a2118"/>
+    <!-- Columns -->
+    <rect x="20" y="35" width="18" height="95" fill="#f0dcc0" rx="2"/>
+    <rect x="50" y="35" width="18" height="95" fill="#f0dcc0" rx="2"/>
+    <rect x="80" y="35" width="18" height="95" fill="#f0dcc0" rx="2"/>
+    <rect x="110" y="35" width="18" height="95" fill="#f0dcc0" rx="2"/>
+    <rect x="140" y="35" width="18" height="95" fill="#f0dcc0" rx="2"/>
+    <rect x="170" y="35" width="18" height="95" fill="#f0dcc0" rx="2"/>
+    <rect x="200" y="35" width="18" height="95" fill="#f0dcc0" rx="2"/>
+    <!-- Pediment -->
+    <path d="M30 25 L120 -5 L210 25 Z" fill="#f0dcc0"/>
+    <!-- Windows upper -->
+    <rect x="20" y="140" width="26" height="26" fill="#ffdca8" rx="2"/>
+    <rect x="58" y="140" width="26" height="26" fill="#ffdca8" rx="2"/>
+    <rect x="96" y="140" width="26" height="26" fill="#ffdca8" rx="2"/>
+    <rect x="134" y="140" width="26" height="26" fill="#ffdca8" rx="2"/>
+    <rect x="172" y="140" width="26" height="26" fill="#ffdca8" rx="2"/>
+    <rect x="210" y="140" width="26" height="26" fill="#ffdca8" rx="2"/>
+    <!-- Door -->
+    <rect x="105" y="85" width="30" height="45" fill="#5a1810" rx="2"/>
   </g>
-  <g opacity=".95">
-    <rect x="910" y="228" width="280" height="202" rx="8" fill="#346b86"/>
-    <path d="M890 228 L1050 142 L1210 228 Z" fill="#23546c"/>
-    <rect x="950" y="275" width="42" height="50" fill="#eaf6ff"/>
-    <rect x="1018" y="275" width="42" height="50" fill="#eaf6ff"/>
-    <rect x="1086" y="275" width="42" height="50" fill="#eaf6ff"/>
-    <rect x="950" y="350" width="42" height="52" fill="#d6eaf6"/>
-    <rect x="1018" y="350" width="42" height="52" fill="#d6eaf6"/>
-    <rect x="1086" y="350" width="42" height="52" fill="#d6eaf6"/>
+
+  <!-- LZU Library/Teaching Building - Blue -->
+  <g transform="translate(930, 195)">
+    <rect x="0" y="0" width="280" height="195" rx="4" fill="url(#bldg2)"/>
+    <path d="M-15 0 L140 -55 L295 0 Z" fill="#142f4a"/>
+    <!-- Central tower -->
+    <rect x="110" y="-30" width="60" height="30" fill="#2c5f8a"/>
+    <rect x="125" y="-45" width="30" height="15" fill="#1a3f5c"/>
+    <!-- Windows -->
+    <g fill="#d4e8f7">
+      <rect x="15" y="30" width="32" height="38" rx="2"/>
+      <rect x="62" y="30" width="32" height="38" rx="2"/>
+      <rect x="185" y="30" width="32" height="38" rx="2"/>
+      <rect x="232" y="30" width="32" height="38" rx="2"/>
+      <rect x="15" y="85" width="32" height="38" rx="2"/>
+      <rect x="62" y="85" width="32" height="38" rx="2"/>
+      <rect x="185" y="85" width="32" height="38" rx="2"/>
+      <rect x="232" y="85" width="32" height="38" rx="2"/>
+      <rect x="15" y="140" width="32" height="38" rx="2"/>
+      <rect x="62" y="140" width="32" height="38" rx="2"/>
+      <rect x="185" y="140" width="32" height="38" rx="2"/>
+      <rect x="232" y="140" width="32" height="38" rx="2"/>
+    </g>
+    <rect x="124" y="100" width="32" height="50" fill="#0e2a3d" rx="2"/>
   </g>
-  <g fill="#2e6d53">
-    <ellipse cx="84" cy="415" rx="58" ry="92"/>
-    <ellipse cx="430" cy="420" rx="54" ry="86"/>
-    <ellipse cx="1280" cy="410" rx="66" ry="100"/>
-    <ellipse cx="1355" cy="440" rx="52" ry="78"/>
+
+  <!-- Campus Gate/Pillars -->
+  <g transform="translate(525, 310)">
+    <rect x="0" y="0" width="18" height="80" fill="#7a2118" rx="2"/>
+    <rect x="102" y="0" width="18" height="80" fill="#7a2118" rx="2"/>
+    <rect x="10" y="-5" width="100" height="12" fill="#922b21" rx="3"/>
+    <rect x="30" y="-40" width="60" height="35" fill="#f0dcc0" rx="3"/>
+    <text x="60" y="-20" text-anchor="middle" fill="#922b21" font-size="18" font-weight="800" font-family="serif">兰大</text>
   </g>
-  <g stroke="#5b4a3f" stroke-width="12" stroke-linecap="round">
-    <path d="M84 472 L84 602"/>
-    <path d="M430 475 L430 600"/>
-    <path d="M1280 475 L1280 625"/>
-    <path d="M1355 490 L1355 620"/>
+
+  <!-- Ginkgo Trees - golden autumn -->
+  <g fill="#e8b830">
+    <ellipse cx="80" cy="340" rx="45" ry="70"/>
+    <ellipse cx="128" cy="355" rx="38" ry="60"/>
+    <ellipse cx="480" cy="355" rx="42" ry="65"/>
+    <ellipse cx="870" cy="345" rx="40" ry="62"/>
+    <ellipse cx="920" cy="360" rx="35" ry="55"/>
+    <ellipse cx="1280" cy="350" rx="48" ry="72"/>
+    <ellipse cx="1330" cy="365" rx="40" ry="60"/>
   </g>
-  <g transform="translate(600 500)">
-    <circle cx="0" cy="0" r="18" fill="#2d4f73"/>
-    <path d="M0 20 L-10 82 M0 20 L12 82 M-20 48 L20 48" stroke="#2d4f73" stroke-width="10" stroke-linecap="round"/>
-    <rect x="-56" y="52" width="26" height="42" rx="5" fill="#b94844"/>
+  <g fill="#d4a020">
+    <ellipse cx="80" cy="340" rx="35" ry="55"/>
+    <ellipse cx="128" cy="355" rx="28" ry="45"/>
+    <ellipse cx="480" cy="355" rx="30" ry="48"/>
+    <ellipse cx="870" cy="345" rx="28" ry="46"/>
+    <ellipse cx="920" cy="360" rx="25" ry="40"/>
+    <ellipse cx="1280" cy="350" rx="36" ry="55"/>
+    <ellipse cx="1330" cy="365" rx="28" ry="44"/>
   </g>
-  <g transform="translate(760 512)">
-    <circle cx="0" cy="0" r="16" fill="#654032"/>
-    <path d="M0 19 L-9 75 M0 19 L15 76 M-18 44 L18 44" stroke="#654032" stroke-width="9" stroke-linecap="round"/>
-    <circle cx="38" cy="78" r="14" fill="#2f6b83"/>
-    <rect x="20" y="45" width="32" height="42" rx="6" fill="#2f6b83"/>
+  <!-- Tree trunks -->
+  <g fill="#5b4a3f" stroke="#4a3a30" stroke-width="3" stroke-linecap="round">
+    <line x1="80" y1="390" x2="80" y2="590"/>
+    <line x1="128" y1="400" x2="128" y2="590"/>
+    <line x1="480" y1="400" x2="480" y2="595"/>
+    <line x1="870" y1="390" x2="870" y2="590"/>
+    <line x1="920" y1="400" x2="920" y2="590"/>
+    <line x1="1280" y1="395" x2="1280" y2="590"/>
+    <line x1="1330" y1="405" x2="1330" y2="590"/>
   </g>
-  <rect width="1440" height="720" fill="#092b4c" opacity=".18"/>
+
+  <!-- Pine trees -->
+  <g fill="#2d6b3a">
+    <polygon points="440,320 420,390 460,390"/>
+    <polygon points="440,350 425,400 455,400"/>
+    <polygon points="900,330 880,395 920,395"/>
+    <polygon points="1220,335 1200,400 1240,400"/>
+  </g>
+
+  <!-- Students walking -->
+  <g transform="translate(610, 478)">
+    <circle cx="0" cy="-10" r="10" fill="#2d4f73"/>
+    <rect x="-6" y="0" width="12" height="22" rx="3" fill="#3a6b99"/>
+    <line x1="0" y1="22" x2="-8" y2="40" stroke="#2d4f73" stroke-width="4" stroke-linecap="round"/>
+    <line x1="0" y1="22" x2="8" y2="40" stroke="#2d4f73" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(650, 485)">
+    <circle cx="0" cy="-10" r="9" fill="#654032"/>
+    <rect x="-5" y="0" width="10" height="20" rx="3" fill="#b94844"/>
+    <line x1="0" y1="20" x2="-7" y2="35" stroke="#654032" stroke-width="3" stroke-linecap="round"/>
+    <line x1="0" y1="20" x2="7" y2="35" stroke="#654032" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(780, 495)">
+    <circle cx="0" cy="-10" r="8" fill="#1a5a3a"/>
+    <rect x="-5" y="0" width="10" height="18" rx="3" fill="#4a7f6a"/>
+    <line x1="0" y1="18" x2="-6" y2="32" stroke="#1a5a3a" stroke-width="3" stroke-linecap="round"/>
+    <line x1="0" y1="18" x2="6" y2="32" stroke="#1a5a3a" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(820, 500)">
+    <circle cx="0" cy="-10" r="8" fill="#4a3060"/>
+    <rect x="-5" y="0" width="10" height="18" rx="3" fill="#8a6090"/>
+    <line x1="0" y1="18" x2="-6" y2="32" stroke="#4a3060" stroke-width="3" stroke-linecap="round"/>
+    <line x1="0" y1="18" x2="6" y2="32" stroke="#4a3060" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Bicycles -->
+  <g transform="translate(720, 508)">
+    <circle cx="-8" cy="0" r="6" fill="none" stroke="#555" stroke-width="2"/>
+    <circle cx="8" cy="0" r="6" fill="none" stroke="#555" stroke-width="2"/>
+    <line x1="-8" y1="0" x2="8" y2="0" stroke="#555" stroke-width="2"/>
+    <line x1="0" y1="-8" x2="0" y2="0" stroke="#555" stroke-width="2"/>
+  </g>
+
+  <!-- Ginkgo leaves floating -->
+  <g fill="#e8b830" opacity=".6">
+    <ellipse cx="700" cy="330" rx="4" ry="6" transform="rotate(30 700 330)"/>
+    <ellipse cx="810" cy="345" rx="3" ry="5" transform="rotate(-20 810 345)"/>
+    <ellipse cx="580" cy="360" rx="3" ry="5" transform="rotate(45 580 360)"/>
+    <ellipse cx="980" cy="340" rx="4" ry="6" transform="rotate(-35 980 340)"/>
+    <ellipse cx="750" cy="355" rx="3" ry="5" transform="rotate(15 750 355)"/>
+  </g>
+
+  <!-- Foreground grass detail -->
+  <g stroke="#4a804a" stroke-width="2" stroke-linecap="round" opacity=".5">
+    <line x1="50" y1="620" x2="55" y2="600"/>
+    <line x1="55" y1="620" x2="60" y2="605"/>
+    <line x1="200" y1="630" x2="205" y2="610"/>
+    <line x1="300" y1="625" x2="305" y2="608"/>
+    <line x1="1100" y1="620" x2="1105" y2="602"/>
+    <line x1="1350" y1="625" x2="1355" y2="608"/>
+  </g>
 </svg>
