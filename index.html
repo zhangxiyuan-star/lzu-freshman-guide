@@ -1,0 +1,130 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>兰州大学新生入学手册</title>
+    <meta name="description" content="面向兰州大学新生的公开网页手册，整理宿舍、地图、食堂、通讯录、校园卡、军训、转专业、校历、校园墙和快递站指引。">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header" id="top">
+      <a class="brand" href="#top" aria-label="返回顶部">
+        <span class="brand-mark">LZU</span>
+        <span>新生入学手册</span>
+      </a>
+      <nav class="top-nav" aria-label="主导航">
+        <a href="#guide">手册</a>
+        <a href="#map">地图</a>
+        <a href="#links">链接</a>
+        <a href="#update">维护</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <img class="hero-image" src="assets/campus-hero.svg" alt="校园迎新氛围插画">
+        <div class="hero-content">
+          <p class="eyebrow">给第一次来到兰大的你</p>
+          <h1 id="hero-title">兰州大学新生入学手册</h1>
+          <p class="hero-copy">把报到前后最容易卡住的事放在一个公开网页里：住哪、去哪、吃什么、怎么联系、校园卡怎么用、军训和转专业要看哪些通知。</p>
+          <p class="source-note">资料入口核验日期：<time id="verifiedDate" datetime="2026-07-15">2026-07-15</time>。具体安排以学校及学院当年通知为准。</p>
+          <form class="search-box" role="search">
+            <label class="sr-only" for="searchInput">搜索手册内容</label>
+            <input id="searchInput" type="search" placeholder="搜索：宿舍、食堂、校园卡、快递、转专业...">
+            <button type="button" id="clearSearch" aria-label="清空搜索">×</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="quick-grid" aria-label="新生高频入口">
+        <a href="#guide" data-focus="dorm">宿舍入住</a>
+        <a href="#map">校园地图</a>
+        <a href="#guide" data-focus="canteen">食堂介绍</a>
+        <a href="#guide" data-focus="card">校园卡</a>
+        <a href="#guide" data-focus="calendar">校历</a>
+        <a href="#guide" data-focus="express">快递站</a>
+      </section>
+
+      <section class="section-shell" id="guide" aria-labelledby="guide-title">
+        <div class="section-heading">
+          <p class="eyebrow">Guide</p>
+          <h2 id="guide-title">入学事项</h2>
+          <p>这些内容适合公开展示。每一块都保留了“官方核验入口”，方便之后按当年通知更新。</p>
+        </div>
+        <div class="toolbar" aria-label="内容筛选">
+          <button class="filter is-active" type="button" data-filter="all">全部</button>
+          <button class="filter" type="button" data-filter="life">生活</button>
+          <button class="filter" type="button" data-filter="study">学业</button>
+          <button class="filter" type="button" data-filter="service">服务</button>
+          <button class="filter" type="button" data-filter="campus">校园</button>
+        </div>
+        <div class="card-grid" id="cardGrid"></div>
+        <p class="empty-state" id="emptyState" hidden>没有找到匹配内容，换个关键词试试。</p>
+      </section>
+
+      <section class="map-section" id="map" aria-labelledby="map-title">
+        <div class="section-heading">
+          <p class="eyebrow">Map</p>
+          <h2 id="map-title">地图与到校路线</h2>
+          <p>已接入兰州大学官网“校园地图”入口，后续可以继续把校区导视图、快递站点和到校路线细化到真实点位。</p>
+        </div>
+        <div class="map-layout">
+          <div class="map-panel" aria-label="校园地图示意">
+            <div class="map-canvas">
+              <span class="pin pin-main">教学区</span>
+              <span class="pin pin-dorm">宿舍区</span>
+              <span class="pin pin-food">食堂</span>
+              <span class="pin pin-express">快递</span>
+              <span class="route-line"></span>
+            </div>
+          </div>
+          <div class="route-list">
+            <article>
+              <h3>到校前</h3>
+              <p>确认录取通知书、学院迎新群、报到时间、校区和住宿安排。跨校区信息不要混用。</p>
+            </article>
+            <article>
+              <h3>到校当天</h3>
+              <p>先看迎新点位，再处理宿舍入住、校园卡、行李寄存和临时采购。遇到路线变化以现场志愿者指引为准。</p>
+            </article>
+            <article>
+              <h3>地图维护</h3>
+              <p>后续可以把这里换成真实校区地图图片、嵌入式地图，或按榆中/城关校区切换。当前先提供官方地图入口，避免手册里出现过期点位。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell" id="links" aria-labelledby="links-title">
+        <div class="section-heading">
+          <p class="eyebrow">Links</p>
+          <h2 id="links-title">常用链接</h2>
+          <p>公开网页最有价值的部分之一，是把分散入口集中起来。下面的链接建议发布前逐条核验。</p>
+        </div>
+        <div class="link-grid" id="linkGrid"></div>
+      </section>
+
+      <section class="update-section" id="update" aria-labelledby="update-title">
+        <div>
+          <p class="eyebrow">Maintain</p>
+          <h2 id="update-title">更新原则</h2>
+          <p>宿舍分配、军训安排、快递站点、校历和转专业政策都会随年份变化。这个网页适合采用“稳定说明 + 当年通知链接”的维护方式。</p>
+        </div>
+        <ol class="checklist">
+          <li>发布前核对当年迎新通知、教务处通知和学院群公告。</li>
+          <li>把容易变化的时间、地点、电话标注更新时间。</li>
+          <li>收集新生反馈，把高频问题补成独立卡片。</li>
+          <li>部署到 GitHub Pages、Vercel、Netlify 或学校服务器，使所有人可访问。</li>
+        </ol>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>非官方整理页面。重要事项以兰州大学及各学院当年正式通知为准。</p>
+      <a href="#top">回到顶部</a>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

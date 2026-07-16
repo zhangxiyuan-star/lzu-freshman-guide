@@ -1,0 +1,10 @@
+﻿# 部署包，不上传
+*.zip
+# macOS
+.DS_Store
+# Windows
+Thumbs.db
+# IDE
+.idea/
+.vscode/
+*.sublime-*
