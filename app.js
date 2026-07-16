@@ -1,4 +1,19 @@
-﻿const verifiedDate = "2026-07-16";
+﻿// --- DISCLAIMER OVERLAY ---
+(function initDisclaimer() {
+  const overlay = document.getElementById('disclaimerOverlay');
+  const acceptBtn = document.getElementById('disclaimerAccept');
+  if (!overlay || !acceptBtn) return;
+  if (localStorage.getItem('lzu_guide_disclaimer_accepted')) {
+    overlay.style.display = 'none';
+    return;
+  }
+  acceptBtn.addEventListener('click', () => {
+    localStorage.setItem('lzu_guide_disclaimer_accepted', '1');
+    overlay.style.animation = 'disclaimerOut .2s ease-in forwards';
+    setTimeout(() => { overlay.style.display = 'none'; }, 200);
+  });
+})();
+const verifiedDate = "2026-07-16";
 
 const official = {
   main: "https://www.lzu.edu.cn/",
@@ -143,6 +158,21 @@ const linkGrid = document.querySelector("#linkGrid");
 const emptyState = document.querySelector("#emptyState");
 const searchInput = document.querySelector("#searchInput");
 const clearSearch = document.querySelector("#clearSearch");
+// --- DISCLAIMER OVERLAY ---
+(function initDisclaimer() {
+  const overlay = document.getElementById('disclaimerOverlay');
+  const acceptBtn = document.getElementById('disclaimerAccept');
+  if (!overlay || !acceptBtn) return;
+  if (localStorage.getItem('lzu_guide_disclaimer_accepted')) {
+    overlay.style.display = 'none';
+    return;
+  }
+  acceptBtn.addEventListener('click', () => {
+    localStorage.setItem('lzu_guide_disclaimer_accepted', '1');
+    overlay.style.animation = 'disclaimerOut .2s ease-in forwards';
+    setTimeout(() => { overlay.style.display = 'none'; }, 200);
+  });
+})();
 const verifiedDateNode = document.querySelector("#verifiedDate");
 let activeFilter = "all";
 
@@ -231,3 +261,10 @@ if (verifiedDateNode) {
 
 renderCards();
 renderLinks();
+
+// --- Add disclaimer out animation ---
+(function addStyle() {
+  const style = document.createElement('style');
+  style.textContent = '@keyframes disclaimerOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.95)}}';
+  document.head.appendChild(style);
+})();
