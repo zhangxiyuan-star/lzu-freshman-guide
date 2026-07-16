@@ -141,6 +141,7 @@ const guideItems = [
 const resourceLinks = [
   ["兰州大学官网", "学校公开信息与权威入口", official.main],
   ["官方校园地图", "AI 地图、城关校区与榆中校区导视图", official.map],
+  ["兰大官方电子地图", "可视化校园地图（支持搜索建筑和导航）", "https://ksh.lzu.edu.cn/campus-map-web/index"],
   ["服务入口", "官网集中服务入口，适合核验办事链接", official.service],
   ["联系我们", "学校公开联系信息入口", official.contact],
   ["教务处", "校历、选课、考试、转专业等学业事项", official.jwc],
