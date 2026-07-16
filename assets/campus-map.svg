@@ -1,0 +1,167 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" role="img" aria-labelledby="map-title map-desc">
+  <title id="map-title">兰州大学两大校区导览图</title>
+  <desc id="map-desc">榆中校区与城关校区主要建筑分布：教学楼、图书馆、宿舍区、食堂、运动场、快递站等</desc>
+  <defs>
+    <linearGradient id="bg-yuzhong" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0f4e8"/>
+      <stop offset="1" stop-color="#e2e8d5"/>
+    </linearGradient>
+    <linearGradient id="bg-chengguan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef2f0"/>
+      <stop offset="1" stop-color="#dce4de"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1440" height="600" fill="#f7f9f4"/>
+  <rect x="10" y="10" width="700" height="580" rx="12" fill="url(#bg-yuzhong)" stroke="#cad4b8" stroke-width="1.5"/>
+  <rect x="730" y="10" width="700" height="580" rx="12" fill="url(#bg-chengguan)" stroke="#c0cec0" stroke-width="1.5"/>
+
+  <!-- Campus Names -->
+  <text x="360" y="52" text-anchor="middle" font-size="26" font-weight="800" fill="#1a5a3a" font-family="sans-serif">榆中校区</text>
+  <text x="1080" y="52" text-anchor="middle" font-size="26" font-weight="800" fill="#1a3f5c" font-family="sans-serif">城关校区</text>
+
+  <!-- YUZHONG CAMPUS MAP -->
+  <g transform="translate(10, 10)">
+
+    <!-- Road grid -->
+    <rect x="100" y="80" width="500" height="12" rx="6" fill="#dcc9ac" opacity=".7"/>
+    <rect x="100" y="520" width="500" height="12" rx="6" fill="#dcc9ac" opacity=".7"/>
+    <rect x="100" y="80" width="12" height="452" rx="6" fill="#dcc9ac" opacity=".7"/>
+    <rect x="588" y="80" width="12" height="452" rx="6" fill="#dcc9ac" opacity=".7"/>
+
+    <!-- Teaching area -->
+    <rect x="130" y="100" width="140" height="70" rx="6" fill="#2c5f8a" opacity=".9"/>
+    <text x="200" y="140" text-anchor="middle" fill="white" font-size="14" font-weight="600" font-family="sans-serif">凌云楼（教学楼）</text>
+
+    <rect x="300" y="100" width="140" height="70" rx="6" fill="#2c5f8a" opacity=".9"/>
+    <text x="370" y="140" text-anchor="middle" fill="white" font-size="14" font-weight="600" font-family="sans-serif">天山堂（教学楼）</text>
+
+    <!-- Library -->
+    <rect x="470" y="100" width="100" height="70" rx="6" fill="#c0392b" opacity=".9"/>
+    <text x="520" y="140" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">昆仑堂（图书馆）</text>
+
+    <!-- Dormitory area -->
+    <rect x="130" y="210" width="80" height="55" rx="5" fill="#8b634a" opacity=".85"/>
+    <text x="170" y="241" text-anchor="middle" fill="white" font-size="12" font-family="sans-serif">宿舍区①</text>
+    <rect x="240" y="210" width="80" height="55" rx="5" fill="#8b634a" opacity=".85"/>
+    <text x="280" y="241" text-anchor="middle" fill="white" font-size="12" font-family="sans-serif">宿舍区②</text>
+    <rect x="350" y="210" width="80" height="55" rx="5" fill="#8b634a" opacity=".85"/>
+    <text x="390" y="241" text-anchor="middle" fill="white" font-size="12" font-family="sans-serif">宿舍区③</text>
+    <rect x="460" y="210" width="110" height="55" rx="5" fill="#8b634a" opacity=".85"/>
+    <text x="515" y="241" text-anchor="middle" fill="white" font-size="12" font-family="sans-serif">研究生宿舍</text>
+
+    <!-- Canteens -->
+    <rect x="130" y="300" width="100" height="50" rx="5" fill="#d4a020" opacity=".9"/>
+    <text x="180" y="329" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">芝兰苑（食堂）</text>
+    <rect x="260" y="300" width="100" height="50" rx="5" fill="#d4a020" opacity=".9"/>
+    <text x="310" y="329" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">玉树苑（食堂）</text>
+    <rect x="390" y="300" width="100" height="50" rx="5" fill="#d4a020" opacity=".9"/>
+    <text x="440" y="329" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">综合楼（食堂+超市）</text>
+
+    <!-- Sports -->
+    <rect x="130" y="380" width="120" height="50" rx="5" fill="#2d8a4e" opacity=".85"/>
+    <text x="190" y="409" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">运动场/体育馆</text>
+
+    <!-- Hospital -->
+    <rect x="280" y="380" width="120" height="50" rx="5" fill="#a05050" opacity=".85"/>
+    <text x="340" y="409" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">校医院</text>
+
+    <!-- Post/Express -->
+    <rect x="430" y="380" width="140" height="50" rx="5" fill="#5a7a9a" opacity=".85"/>
+    <text x="500" y="409" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">快递站/邮政</text>
+
+    <!-- Bus stop -->
+    <circle cx="580" cy="580" r="10" fill="#c0392b"/>
+    <text x="580" y="576" text-anchor="middle" fill="white" font-size="11" font-weight="800" font-family="sans-serif">校</text>
+    <text x="580" y="590" text-anchor="middle" fill="#333" font-size="12" font-family="sans-serif">校车候车点</text>
+  </g>
+
+  <!-- CHENGGUAN CAMPUS MAP -->
+  <g transform="translate(730, 10)">
+
+    <!-- Road grid -->
+    <rect x="80" y="80" width="540" height="12" rx="6" fill="#dcc9ac" opacity=".7"/>
+    <rect x="80" y="520" width="540" height="12" rx="6" fill="#dcc9ac" opacity=".7"/>
+    <rect x="80" y="80" width="12" height="452" rx="6" fill="#dcc9ac" opacity=".7"/>
+    <rect x="608" y="80" width="12" height="452" rx="6" fill="#dcc9ac" opacity=".7"/>
+
+    <!-- Main teaching buildings -->
+    <rect x="120" y="100" width="150" height="65" rx="6" fill="#2c5f8a" opacity=".9"/>
+    <text x="195" y="138" text-anchor="middle" fill="white" font-size="14" font-weight="600" font-family="sans-serif">观云楼（教学楼）</text>
+
+    <rect x="300" y="100" width="150" height="65" rx="6" fill="#2c5f8a" opacity=".9"/>
+    <text x="375" y="138" text-anchor="middle" fill="white" font-size="14" font-weight="600" font-family="sans-serif">齐云楼（教学楼）</text>
+
+    <rect x="480" y="100" width="110" height="65" rx="6" fill="#2c5f8a" opacity=".9"/>
+    <text x="535" y="138" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">飞云楼（信息学院）</text>
+
+    <!-- Library -->
+    <rect x="120" y="200" width="120" height="55" rx="5" fill="#c0392b" opacity=".9"/>
+    <text x="180" y="232" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">积石堂（图书馆）</text>
+
+    <!-- Administration -->
+    <rect x="270" y="200" width="120" height="55" rx="5" fill="#5a3a7a" opacity=".85"/>
+    <text x="330" y="232" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">科学馆/行政</text>
+
+    <!-- Lab buildings -->
+    <rect x="420" y="200" width="170" height="55" rx="5" fill="#3a6a8a" opacity=".85"/>
+    <text x="505" y="232" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">实验室/研究所</text>
+
+    <!-- Dormitory -->
+    <rect x="120" y="290" width="90" height="50" rx="5" fill="#8b634a" opacity=".85"/>
+    <text x="165" y="319" text-anchor="middle" fill="white" font-size="12" font-family="sans-serif">宿舍区</text>
+    <rect x="240" y="290" width="90" height="50" rx="5" fill="#8b634a" opacity=".85"/>
+    <text x="285" y="319" text-anchor="middle" fill="white" font-size="12" font-family="sans-serif">研究生宿舍</text>
+
+    <!-- Canteens -->
+    <rect x="360" y="290" width="110" height="50" rx="5" fill="#d4a020" opacity=".9"/>
+    <text x="415" y="319" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">丹桂苑（食堂）</text>
+    <rect x="500" y="290" width="90" height="50" rx="5" fill="#d4a020" opacity=".9"/>
+    <text x="545" y="319" text-anchor="middle" fill="white" font-size="12" font-weight="600" font-family="sans-serif">又一新（食堂）</text>
+
+    <!-- Sports -->
+    <rect x="120" y="375" width="140" height="50" rx="5" fill="#2d8a4e" opacity=".85"/>
+    <text x="190" y="404" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">运动场/体育馆</text>
+
+    <!-- Hospital -->
+    <rect x="290" y="375" width="120" height="50" rx="5" fill="#a05050" opacity=".85"/>
+    <text x="350" y="404" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">校医院</text>
+
+    <!-- Express -->
+    <rect x="440" y="375" width="150" height="50" rx="5" fill="#5a7a9a" opacity=".85"/>
+    <text x="515" y="404" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="sans-serif">快递站/校园服务</text>
+
+    <!-- Bus stop -->
+    <circle cx="120" cy="580" r="10" fill="#c0392b"/>
+    <text x="120" y="576" text-anchor="middle" fill="white" font-size="11" font-weight="800" font-family="sans-serif">校</text>
+    <text x="120" y="590" text-anchor="middle" fill="#333" font-size="12" font-family="sans-serif">校车候车点</text>
+  </g>
+
+  <!-- Shuttle bus route between campuses -->
+  <g>
+    <line x1="590" y1="590" x2="730" y2="140" stroke="#c0392b" stroke-width="4" stroke-dasharray="12,6" opacity=".7"/>
+    <line x1="730" y1="140" x2="850" y2="590" stroke="#c0392b" stroke-width="4" stroke-dasharray="12,6" opacity=".7"/>
+    <!-- Arrowheads -->
+    <polygon points="725,148 718,135 735,138" fill="#c0392b" opacity=".7"/>
+    <polygon points="843,582 850,595 835,590" fill="#c0392b" opacity=".7"/>
+  </g>
+
+  <!-- Shuttle info overlay -->
+  <g transform="translate(1440-250, 540)">
+    <rect x="1100" y="520" width="300" height="65" rx="8" fill="#c0392b" opacity=".95"/>
+    <text x="1130" y="546" fill="white" font-size="14" font-weight="700" font-family="sans-serif">通勤校车：榆中 ↔ 城关</text>
+    <text x="1130" y="568" fill="#ffe3a9" font-size="12" font-family="sans-serif">约 1 小时车程，详情见手册「通勤出行」卡片</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(15, 555)">
+    <rect x="0" y="0" width="200" height="35" rx="6" fill="white" stroke="#ccc" stroke-width="1" opacity=".9"/>
+    <rect x="8" y="8" width="16" height="16" rx="3" fill="#2c5f8a"/>
+    <text x="30" y="20" font-size="12" fill="#333" font-family="sans-serif">教学/办公</text>
+    <rect x="88" y="8" width="16" height="16" rx="3" fill="#8b634a"/>
+    <text x="110" y="20" font-size="12" fill="#333" font-family="sans-serif">宿舍</text>
+    <rect x="148" y="8" width="16" height="16" rx="3" fill="#d4a020"/>
+    <text x="170" y="20" font-size="12" fill="#333" font-family="sans-serif">食堂</text>
+  </g>
+</svg>
