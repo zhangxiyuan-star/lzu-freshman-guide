@@ -1,4 +1,19 @@
-﻿const verifiedDate = "2026-07-16";
+// --- DISCLAIMER OVERLAY ---
+(function initDisclaimer() {
+  const overlay = document.getElementById('disclaimerOverlay');
+  const acceptBtn = document.getElementById('disclaimerAccept');
+  if (!overlay || !acceptBtn) return;
+  if (localStorage.getItem('lzu_guide_disclaimer_accepted')) {
+    overlay.style.display = 'none';
+    return;
+  }
+  acceptBtn.addEventListener('click', () => {
+    localStorage.setItem('lzu_guide_disclaimer_accepted', '1');
+    overlay.style.animation = 'disclaimerOut .2s ease-in forwards';
+    setTimeout(() => { overlay.style.display = 'none'; }, 200);
+  });
+})();
+const verifiedDate = "2026-07-16";
 
 const official = {
   main: "https://www.lzu.edu.cn/",
@@ -121,12 +136,12 @@ const guideItems = [
     points: ["榆中校区：本科生主校区。有凌云楼、天山堂等主要教学楼，昆仑堂图书馆、芝兰苑/玉树苑食堂", "城关校区：研究生和部分学院所在地。有观云楼、齐云楼等教学楼，积石堂图书馆、丹桂苑食堂", "各学院具体分布可以查学院官网或报到通知", "榆中校区地址：甘肃省兰州市榆中县夏官营镇；城关校区地址：甘肃省兰州市城关区天水南路 222 号"],
     links: [{ label: "兰州大学官网", href: official.main }, { label: "官方校园地图", href: official.map }]
   }
-  }
 ];
 
 const resourceLinks = [
   ["兰州大学官网", "学校公开信息与权威入口", official.main],
   ["官方校园地图", "AI 地图、城关校区与榆中校区导视图", official.map],
+  ["兰大官方电子地图", "可视化校园地图（支持搜索建筑和导航）", "https://ksh.lzu.edu.cn/campus-map-web/index"],
   ["服务入口", "官网集中服务入口，适合核验办事链接", official.service],
   ["联系我们", "学校公开联系信息入口", official.contact],
   ["教务处", "校历、选课、考试、转专业等学业事项", official.jwc],
@@ -232,3 +247,10 @@ if (verifiedDateNode) {
 
 renderCards();
 renderLinks();
+
+// --- Add disclaimer out animation ---
+(function addStyle() {
+  const style = document.createElement('style');
+  style.textContent = '@keyframes disclaimerOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.95)}}';
+  document.head.appendChild(style);
+})();

@@ -1,10 +1,18 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>兰州大学新生入学手册</title>
-    <meta name="description" content="面向兰州大学新生的公开网页手册，整理宿舍、地图、食堂、通讯录、校园卡、军训、转专业、校历、校园墙和快递站指引。">
+    <meta name="description" content="兰州大学新生入学手册：宿舍、地图、食堂、通讯录、校园卡、军训、转专业、校历、通勤出行、快递站指引。面向新生的公开网页手册。">
+    <meta name="keywords" content="兰州大学,新生指南,榆中校区,城关校区,LZU,入学手册,校园地图,宿舍,食堂,校园卡,军训,转专业,校历">
+    <meta name="author" content="LZU学生自制">
+    <meta property="og:title" content="兰州大学新生入学手册">
+    <meta property="og:description" content="面向兰州大学新生的公开网页手册，把报到前后最容易卡住的事整理在一个网页里。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zhangxiyuan-star.github.io/lzu-freshman-guide/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -21,9 +29,19 @@
       </nav>
     </header>
 
+    <!-- 免责声明弹窗 -->
+    <div class="disclaimer-overlay" id="disclaimerOverlay">
+      <div class="disclaimer-card">
+        <h3>📌 重要提示</h3>
+        <p>本指南由学生自发搭建，<strong>非兰州大学官方平台</strong>。所有信息均基于公开资料整理，可能存在延迟或误差。</p>
+        <p>入学相关事宜请以<a href="https://www.lzu.edu.cn/" target="_blank" rel="noopener noreferrer">兰州大学官网</a>及官方公众号通知为准。</p>
+        <button class="disclaimer-btn" id="disclaimerAccept">我已了解，进入手册</button>
+      </div>
+    </div>
+
     <main>
-      <section class="hero" aria-labelledby="hero-title">
-        <img class="hero-image" src="assets/campus-hero.svg" alt="校园迎新氛围插画">
+      <section class="hero" aria-labelledby="hero-title" style="background:linear-gradient(135deg,#0a2d4f 0%,#174a7c 40%,#2b8a9e 100%)">
+        <img class="hero-image" loading="eager" src="assets/campus-hero.svg" alt="兰州大学校园风光" onerror="this.style.display='none'">
         <div class="hero-content">
           <p class="eyebrow">给第一次来到兰大的你</p>
           <h1 id="hero-title">兰州大学新生入学手册</h1>
@@ -37,6 +55,8 @@
         </div>
       </section>
 
+      <div class="section-divider"></div>
+
       <section class="quick-grid" aria-label="新生高频入口">
         <a href="#guide" data-focus="dorm">宿舍入住</a>
         <a href="#map">校园地图</a>
@@ -46,9 +66,13 @@
         <a href="#guide" data-focus="express">快递站</a>
       </section>
 
+      <div class="section-divider wave-divider">
+        <svg viewBox="0 0 1440 48" preserveAspectRatio="none"><path d="M0 24 Q360 0 720 24 T1440 24 V48 H0 Z" fill="#fbfcfe"/></svg>
+      </div>
+
       <section class="section-shell" id="guide" aria-labelledby="guide-title">
         <div class="section-heading">
-          <p class="eyebrow">Guide</p>
+          <span class="section-icon">📋</span><p class="eyebrow">Guide</p>
           <h2 id="guide-title">入学事项</h2>
           <p>这些内容适合公开展示。每一块都保留了“官方核验入口”，方便之后按当年通知更新。</p>
         </div>
@@ -65,13 +89,13 @@
 
       <section class="map-section" id="map" aria-labelledby="map-title">
         <div class="section-heading">
-          <p class="eyebrow">Map</p>
+          <span class="section-icon">🗺️</span><p class="eyebrow">Map</p>
           <h2 id="map-title">地图与到校路线</h2>
           <p>已接入兰州大学官网“校园地图”入口，后续可以继续把校区导视图、快递站点和到校路线细化到真实点位。</p>
         </div>
-        <div class="map-layout">
+        <div class="map-banner"><img class="map-banner-img" loading="lazy" src="assets/campus-banner.jpg" alt="兰州大学城关校区风光" loading="lazy"></div><div class="map-layout">
           <div class="map-panel" aria-label="校园地图示意">
-            <img class="campus-map-image" src="assets/campus-map.svg" alt="兰州大学两大校区导览图，标注了榆中校区和城关校区的主要建筑、食堂、宿舍、运动场、快递站和校车路线">
+            <img class="campus-map-image" loading="lazy" src="assets/campus-map.svg" alt="兰州大学两大校区导览图，标注了榆中校区和城关校区的主要建筑、食堂、宿舍、运动场、快递站和校车路线">
           </div>
           <div class="route-list">
             <article>
@@ -92,7 +116,7 @@
 
       <section class="section-shell" id="links" aria-labelledby="links-title">
         <div class="section-heading">
-          <p class="eyebrow">Links</p>
+          <span class="section-icon">🔗</span><p class="eyebrow">Links</p>
           <h2 id="links-title">常用链接</h2>
           <p>公开网页最有价值的部分之一，是把分散入口集中起来。下面的链接建议发布前逐条核验。</p>
         </div>
@@ -101,7 +125,7 @@
 
       <section class="update-section" id="update" aria-labelledby="update-title">
         <div>
-          <p class="eyebrow">Maintain</p>
+          <span class="section-icon">🛠️</span><p class="eyebrow">Maintain</p>
           <h2 id="update-title">更新原则</h2>
           <p>宿舍分配、军训安排、快递站点、校历和转专业政策都会随年份变化。这个网页适合采用“稳定说明 + 当年通知链接”的维护方式。</p>
         </div>
@@ -115,7 +139,7 @@
     </main>
 
     <footer class="site-footer">
-      <p>非官方整理页面。重要事项以兰州大学及各学院当年正式通知为准。</p>
+      <p>⚠ 本网站为非官方学生自制项目，所有信息仅供参考。重要事项以<a href="https://www.lzu.edu.cn/" target="_blank" rel="noopener noreferrer">兰州大学官方通知</a>为准。</p>
       <a href="#top">回到顶部</a>
     </footer>
 
