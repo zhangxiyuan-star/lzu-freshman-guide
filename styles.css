@@ -1323,7 +1323,7 @@ img {
 }
 
 .card-link-empty {
-  color: var(--text-muted);
+  color: var(--text-tertiary);
   background: var(--bg-soft);
   border-color: var(--border-light);
   font-weight: 500;
@@ -1331,7 +1331,7 @@ img {
 
 .card-link-empty:hover {
   background: var(--bg-soft);
-  color: var(--text-muted);
+  color: var(--text-tertiary);
   border-color: var(--border-light);
   transform: none;
   box-shadow: none;

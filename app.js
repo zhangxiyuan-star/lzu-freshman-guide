@@ -149,7 +149,6 @@ const linkGrid = document.querySelector("#linkGrid");
 const emptyState = document.querySelector("#emptyState");
 const searchInput = document.querySelector("#searchInput");
 const searchForm = document.querySelector(".search-box");
-const verifiedDateNode = document.querySelector("#verifiedDate");
 const filterCount = document.querySelector("#filterCount");
 let activeFilter = "all";
 
@@ -233,16 +232,25 @@ let activeFilter = "all";
 (function initScanline() {
   const scanline = document.getElementById('scanline');
   if (!scanline) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (window.matchMedia('(max-width: 680px)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    scanline.style.display = 'none';
+    return;
+  }
+  if (window.matchMedia('(max-width: 680px)').matches) {
+    scanline.style.display = 'none';
+    return;
+  }
 
+  // 扫描线默认有 CSS 动画（8秒循环），页面加载后显示一段时间再隐藏
   window.addEventListener('load', () => {
+    scanline.style.opacity = '0.3';
     setTimeout(() => {
-      scanline.classList.add('active');
+      scanline.style.transition = 'opacity 500ms ease';
+      scanline.style.opacity = '0';
       setTimeout(() => {
-        scanline.remove();
-      }, 600);
-    }, 200);
+        scanline.style.display = 'none';
+      }, 500);
+    }, 2000);
   });
 })();
 
@@ -429,16 +437,16 @@ function renderCards() {
 
   cardGrid.innerHTML = visibleItems.map((item, idx) => `
     <article class="guide-card" data-id="${item.id}" style="animation-delay: ${idx * 30}ms">
-      <header>
+      <div class="card-header">
         <h3>${item.title}</h3>
-        <span class="badge">${item.tag}</span>
-      </header>
+        <span class="card-badge">${item.tag}</span>
+      </div>
       <p>${item.summary}</p>
       <ul>
         ${item.points.map((point) => `<li>${point}</li>`).join("")}
       </ul>
-      <div class="card-actions">
-        ${item.links.length ? item.links.map((link) => `<a class="card-link" href="${link.href}" target="_blank" rel="noopener noreferrer"><span>${link.label}</span><svg class="link-external-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 2H4C2.89543 2 2 2.89543 2 4V12C2 13.1046 2.89543 14 4 14H12C13.1046 14 14 13.1046 14 12V10M10 2H14M14 2V6M14 2L7 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>`).join("") : "<a class=\"card-link card-link-empty\" href=\"#update\">等待补充入口</a>"}
+      <div class="card-footer">
+        ${item.links.length ? item.links.map((link) => `<a class="card-link" href="${link.href}" target="_blank" rel="noopener noreferrer"><span>${link.label}</span><svg class="link-external-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 2H4C2.89543 2 2 2.89543 2 4V12C2 13.1046 2.89543 14 4 14H12C13.1046 14 14 13.1046 14 12V10M10 2H14M14 2V6M14 2L7 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>`).join("") : "<span class=\"card-link card-link-empty\">等待补充入口</span>"}
       </div>
     </article>
   `).join("");
@@ -524,13 +532,6 @@ if (searchForm) {
       cardGrid.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
-}
-
-// ============================================
-// VERIFIED DATE
-// ============================================
-if (verifiedDateNode) {
-  verifiedDateNode.textContent = verifiedDate;
 }
 
 // ============================================
@@ -622,6 +623,9 @@ renderLinks();
   const messageForm = document.getElementById('messageForm');
   if (!wordCloud) return;
 
+  const STORAGE_KEY = 'lzu_freshman_guide_wordcloud';
+  const MAX_WORDS = 30;
+
   // 初始留言词库 - 围绕LZU形状排列
   const initialWords = [
     { text: '兰州大学', size: 'lg', x: 38, y: 30 },
@@ -644,7 +648,34 @@ renderLinks();
     { text: 'LZU', size: 'lg', x: 42, y: 45 },
   ];
 
-  let words = [...initialWords];
+  // 从 localStorage 加载用户提交的词
+  function loadUserWords() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          return parsed;
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to load word cloud data:', e);
+    }
+    return [];
+  }
+
+  // 保存用户提交的词到 localStorage
+  function saveUserWords(userWords) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(userWords));
+    } catch (e) {
+      console.warn('Failed to save word cloud data:', e);
+    }
+  }
+
+  // 合并初始词和用户词（用户词在前）
+  const userWords = loadUserWords();
+  let words = [...userWords, ...initialWords].slice(0, MAX_WORDS);
   let animationDelay = 0;
 
   function renderWordCloud() {
@@ -680,6 +711,9 @@ renderLinks();
 
       if (!content) return;
 
+      // 简单的内容过滤（防止过长或特殊字符滥用）
+      if (content.length > 100) return;
+
       // 提取关键词（取前4-6个字作为词云词）
       let keyword = content.length > 8 ? content.substring(0, 6) + '...' : content;
       if (name) {
@@ -692,12 +726,17 @@ renderLinks();
       const x = 8 + Math.random() * 80;
       const y = 10 + Math.random() * 75;
 
-      words.unshift({ text: keyword, size, x, y });
+      const newWord = { text: keyword, size, x, y };
 
-      // 保持最多30个词
-      if (words.length > 30) {
-        words = words.slice(0, 30);
-      }
+      // 添加到用户词列表并保存
+      const newUserWords = [newWord, ...userWords].slice(0, MAX_WORDS - initialWords.length);
+      saveUserWords(newUserWords);
+
+      // 更新显示
+      words = [newWord, ...words].slice(0, MAX_WORDS);
+      // 同步 userWords 数组
+      userWords.length = 0;
+      userWords.push(...newUserWords);
 
       renderWordCloud();
 
