@@ -620,32 +620,67 @@ renderLinks();
 (function initWordCloud() {
   const wordCloud = document.getElementById('wordCloud');
   const wordCloudCount = document.getElementById('wordCloudCount');
+  const wordCloudReset = document.getElementById('wordCloudReset');
   const messageForm = document.getElementById('messageForm');
   if (!wordCloud) return;
 
   const STORAGE_KEY = 'lzu_freshman_guide_wordcloud';
   const MAX_WORDS = 30;
+  const MAX_USER_WORDS = 18; // 用户最多提交的数量
 
-  // 初始留言词库 - 围绕LZU形状排列
+  // 敏感词简单过滤（仅前端基础过滤，上线后如有后端需加强）
+  const SENSITIVE_WORDS = ['傻逼', '操你', '去死', '垃圾', '废物', '脑残'];
+
+  function containsSensitive(text) {
+    return SENSITIVE_WORDS.some(word => text.includes(word));
+  }
+
+  // 颜色池 - 深蓝学院风
+  const COLORS = [
+    'color-blue-dark',
+    'color-blue',
+    'color-blue-light',
+    'color-gold',
+    'color-gold-light',
+    'color-secondary',
+    'color-tertiary',
+  ];
+
+  // 旋转角度池
+  const ROTATIONS = ['rot-l2', 'rot-l1', 'rot-0', 'rot-0', 'rot-0', 'rot-r1', 'rot-r2'];
+
+  // 浮动动画池
+  const FLOATS = ['float-1', 'float-2', 'float-3'];
+
+  // 初始留言词库 - 更精准的LZU形状排列
   const initialWords = [
-    { text: '兰州大学', size: 'lg', x: 38, y: 30 },
-    { text: '自强不息', size: 'md', x: 10, y: 15 },
-    { text: '独树一帜', size: 'md', x: 62, y: 18 },
-    { text: '积石堂', size: 'md', x: 15, y: 55 },
-    { text: '昆仑堂', size: 'md', x: 65, y: 58 },
-    { text: '天山堂', size: 'sm', x: 8, y: 38 },
-    { text: '榆中校区', size: 'sm', x: 72, y: 40 },
-    { text: '城关校区', size: 'sm', x: 5, y: 70 },
-    { text: '夏官营', size: 'sm', x: 75, y: 72 },
-    { text: '新生加油', size: 'sm', x: 30, y: 75 },
-    { text: '未来可期', size: 'sm', x: 55, y: 78 },
-    { text: '青春', size: 'xs', x: 25, y: 5 },
-    { text: '梦想', size: 'xs', x: 48, y: 8 },
-    { text: '陪伴', size: 'xs', x: 20, y: 48 },
-    { text: '成长', size: 'xs', x: 50, y: 50 },
-    { text: '遇见', size: 'xs', x: 42, y: 65 },
-    { text: '启程', size: 'xs', x: 60, y: 28 },
-    { text: 'LZU', size: 'lg', x: 42, y: 45 },
+    // L 字母区域（左侧竖线 + 底部横线）
+    { text: '自强不息', size: 'md', x: 6, y: 12, color: 'color-blue-dark', rot: 'rot-l1' },
+    { text: '独树一帜', size: 'md', x: 6, y: 35, color: 'color-gold', rot: 'rot-l1' },
+    { text: '积石堂', size: 'sm', x: 10, y: 58, color: 'color-blue', rot: 'rot-l2' },
+    { text: '天山堂', size: 'sm', x: 8, y: 72, color: 'color-blue-light', rot: 'rot-l1' },
+    { text: '青春', size: 'xs', x: 14, y: 4, color: 'color-gold-light', rot: 'rot-0' },
+    { text: '梦想', size: 'xs', x: 2, y: 25, color: 'color-secondary', rot: 'rot-l2' },
+    { text: '陪伴', size: 'xs', x: 18, y: 48, color: 'color-tertiary', rot: 'rot-l1' },
+    { text: '遇见', size: 'xs', x: 20, y: 66, color: 'color-blue', rot: 'rot-0' },
+
+    // Z 字母区域（中间顶部斜线 + 横线 + 底部斜线）
+    { text: '兰州大学', size: 'lg', x: 34, y: 8, color: 'color-blue-dark', rot: 'rot-0' },
+    { text: 'LZU', size: 'lg', x: 38, y: 42, color: 'color-gold', rot: 'rot-0' },
+    { text: '昆仑堂', size: 'md', x: 32, y: 68, color: 'color-blue', rot: 'rot-r1' },
+    { text: '新生加油', size: 'sm', x: 26, y: 28, color: 'color-gold-light', rot: 'rot-l1' },
+    { text: '未来可期', size: 'sm', x: 48, y: 62, color: 'color-blue-dark', rot: 'rot-r1' },
+    { text: '成长', size: 'xs', x: 52, y: 26, color: 'color-secondary', rot: 'rot-r2' },
+    { text: '启程', size: 'xs', x: 30, y: 80, color: 'color-gold', rot: 'rot-l2' },
+
+    // U 字母区域（右侧两条竖线 + 底部弧线）
+    { text: '榆中校区', size: 'md', x: 68, y: 14, color: 'color-blue', rot: 'rot-r1' },
+    { text: '城关校区', size: 'md', x: 72, y: 40, color: 'color-blue-dark', rot: 'rot-r1' },
+    { text: '夏官营', size: 'sm', x: 76, y: 62, color: 'color-blue-light', rot: 'rot-r2' },
+    { text: '丹桂苑', size: 'sm', x: 64, y: 75, color: 'color-gold', rot: 'rot-r1' },
+    { text: '芝兰苑', size: 'xs', x: 82, y: 30, color: 'color-secondary', rot: 'rot-r2' },
+    { text: '玉树苑', size: 'xs', x: 60, y: 50, color: 'color-tertiary', rot: 'rot-0' },
+    { text: '凌云楼', size: 'xs', x: 80, y: 78, color: 'color-blue', rot: 'rot-r1' },
   ];
 
   // 从 localStorage 加载用户提交的词
@@ -673,24 +708,66 @@ renderLinks();
     }
   }
 
-  // 合并初始词和用户词（用户词在前）
+  // 随机选择数组元素
+  function randomPick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  // 生成随机位置（在词云区域内，避开边缘）
+  function randomPosition() {
+    return {
+      x: 6 + Math.random() * 82,
+      y: 6 + Math.random() * 80
+    };
+  }
+
+  // 合并初始词和用户词
   const userWords = loadUserWords();
   let words = [...userWords, ...initialWords].slice(0, MAX_WORDS);
-  let animationDelay = 0;
 
-  function renderWordCloud() {
+  function renderWordCloud(isNewSubmission = false) {
     wordCloud.innerHTML = '';
-    animationDelay = 0;
+
+    // 检测是否开启减少动画
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     words.forEach((word, index) => {
       const span = document.createElement('span');
-      span.className = `cloud-word size-${word.size}`;
+
+      // 基础类
+      const classes = ['cloud-word', `size-${word.size}`];
+
+      // 颜色
+      classes.push(word.color || randomPick(COLORS));
+
+      // 旋转角度
+      const rot = word.rot || randomPick(ROTATIONS);
+      classes.push(rot);
+
+      // 浮动动画（仅初始加载时，新提交的用飞入动画）
+      if (!reduceMotion && !isNewSubmission) {
+        classes.push(randomPick(FLOATS));
+      }
+
+      // 新提交的词用飞入动画
+      if (isNewSubmission && index === 0) {
+        classes.push('is-new');
+      }
+
+      span.className = classes.join(' ');
       span.textContent = word.text;
       span.style.left = word.x + '%';
       span.style.top = word.y + '%';
-      span.style.animationDelay = animationDelay + 'ms';
+      span.style.setProperty('--delay', (index * 60) + 'ms');
+
+      // 完整留言 tooltip
+      if (word.fullText) {
+        span.setAttribute('data-full', word.fullText);
+      } else {
+        span.setAttribute('data-full', word.text);
+      }
+
       wordCloud.appendChild(span);
-      animationDelay += 80;
     });
 
     if (wordCloudCount) {
@@ -699,6 +776,27 @@ renderLinks();
   }
 
   renderWordCloud();
+
+  // 重置按钮 - 清空我的留言
+  if (wordCloudReset) {
+    wordCloudReset.addEventListener('click', () => {
+      if (userWords.length === 0) {
+        // 已经没有用户留言了，给个提示
+        wordCloudReset.style.color = 'var(--gold)';
+        setTimeout(() => {
+          wordCloudReset.style.color = '';
+        }, 1000);
+        return;
+      }
+
+      if (confirm('确定要清空你提交的所有留言吗？此操作不可撤销。')) {
+        userWords.length = 0;
+        saveUserWords([]);
+        words = [...initialWords].slice(0, MAX_WORDS);
+        renderWordCloud();
+      }
+    });
+  }
 
   // 留言提交
   if (messageForm) {
@@ -711,39 +809,68 @@ renderLinks();
 
       if (!content) return;
 
-      // 简单的内容过滤（防止过长或特殊字符滥用）
-      if (content.length > 100) return;
-
-      // 提取关键词（取前4-6个字作为词云词）
-      let keyword = content.length > 8 ? content.substring(0, 6) + '...' : content;
-      if (name) {
-        keyword = name + '：' + keyword.substring(0, 4);
+      // 内容长度校验
+      if (content.length > 100) {
+        alert('留言不能超过 100 个字哦~');
+        return;
       }
 
-      // 随机位置（在LZU形状范围内）
-      const sizes = ['sm', 'sm', 'xs', 'xs', 'md'];
-      const size = sizes[Math.floor(Math.random() * sizes.length)];
-      const x = 8 + Math.random() * 80;
-      const y = 10 + Math.random() * 75;
+      // 敏感词过滤
+      if (containsSensitive(content) || (name && containsSensitive(name))) {
+        alert('留言包含不适当的内容，请修改后再提交~');
+        return;
+      }
 
-      const newWord = { text: keyword, size, x, y };
+      // 检查用户留言数量上限
+      if (userWords.length >= MAX_USER_WORDS) {
+        alert('你已经提交了 ' + MAX_USER_WORDS + ' 条祝福啦，先让其他同学也留一些吧~');
+        return;
+      }
+
+      // 提取显示关键词
+      let displayText = content.length > 8 ? content.substring(0, 6) + '...' : content;
+      if (name) {
+        displayText = name + '：' + (content.length > 4 ? content.substring(0, 4) + '...' : content);
+      }
+
+      // 完整留言（用于 tooltip）
+      const fullText = name ? `${name}：${content}` : content;
+
+      // 随机属性
+      const sizes = ['sm', 'sm', 'sm', 'xs', 'xs', 'md'];
+      const size = randomPick(sizes);
+      const pos = randomPosition();
+      const color = randomPick(COLORS);
+      const rot = randomPick(ROTATIONS);
+
+      const newWord = {
+        text: displayText,
+        fullText: fullText,
+        size,
+        x: pos.x,
+        y: pos.y,
+        color,
+        rot,
+        isUser: true
+      };
 
       // 添加到用户词列表并保存
-      const newUserWords = [newWord, ...userWords].slice(0, MAX_WORDS - initialWords.length);
+      const newUserWords = [newWord, ...userWords].slice(0, MAX_USER_WORDS);
       saveUserWords(newUserWords);
 
-      // 更新显示
-      words = [newWord, ...words].slice(0, MAX_WORDS);
       // 同步 userWords 数组
       userWords.length = 0;
       userWords.push(...newUserWords);
 
-      renderWordCloud();
+      // 更新显示（新提交的词放在最前面）
+      words = [newWord, ...words.filter(w => !w.isUser), ...words.filter(w => w.isUser && w !== newWord)].slice(0, MAX_WORDS);
+
+      renderWordCloud(true);
 
       // 清空输入
       contentInput.value = '';
 
-      // 简单的提交成功反馈
+      // 提交成功反馈
       const btn = messageForm.querySelector('.message-submit');
       const originalText = btn.innerHTML;
       btn.innerHTML = '<span>已送达 ✓</span>';
