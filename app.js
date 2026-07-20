@@ -1,18 +1,8 @@
-// --- DISCLAIMER OVERLAY ---
-(function initDisclaimer() {
-  const overlay = document.getElementById('disclaimerOverlay');
-  const acceptBtn = document.getElementById('disclaimerAccept');
-  if (!overlay || !acceptBtn) return;
-  if (localStorage.getItem('lzu_guide_disclaimer_accepted')) {
-    overlay.style.display = 'none';
-    return;
-  }
-  acceptBtn.addEventListener('click', () => {
-    localStorage.setItem('lzu_guide_disclaimer_accepted', '1');
-    overlay.style.animation = 'disclaimerOut .2s ease-in forwards';
-    setTimeout(() => { overlay.style.display = 'none'; }, 200);
-  });
-})();
+// ============================================
+// LZU Freshman Guide — Warm Playful v3.0
+// 兰州大学新生入学手册 · 温暖活力风
+// ============================================
+
 const verifiedDate = "2026-07-16";
 
 const official = {
@@ -158,10 +148,274 @@ const cardGrid = document.querySelector("#cardGrid");
 const linkGrid = document.querySelector("#linkGrid");
 const emptyState = document.querySelector("#emptyState");
 const searchInput = document.querySelector("#searchInput");
-const clearSearch = document.querySelector("#clearSearch");
+const searchForm = document.querySelector(".search-box");
 const verifiedDateNode = document.querySelector("#verifiedDate");
+const filterCount = document.querySelector("#filterCount");
 let activeFilter = "all";
 
+// ============================================
+// 目录弹窗导航
+// ============================================
+(function initTocPanel() {
+  const brandBtn = document.getElementById('brandBtn');
+  const tocPanel = document.getElementById('tocPanel');
+  const tocOverlay = document.getElementById('tocOverlay');
+  const tocClose = document.getElementById('tocClose');
+  const tocItems = document.querySelectorAll('.toc-item');
+
+  if (!brandBtn || !tocPanel || !tocOverlay) return;
+
+  function openToc() {
+    tocPanel.classList.add('is-open');
+    tocOverlay.classList.add('is-open');
+    tocPanel.setAttribute('aria-hidden', 'false');
+    brandBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeToc() {
+    tocPanel.classList.remove('is-open');
+    tocOverlay.classList.remove('is-open');
+    tocPanel.setAttribute('aria-hidden', 'true');
+    brandBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  brandBtn.addEventListener('click', () => {
+    if (tocPanel.classList.contains('is-open')) {
+      closeToc();
+    } else {
+      openToc();
+    }
+  });
+
+  if (tocClose) {
+    tocClose.addEventListener('click', closeToc);
+  }
+
+  tocOverlay.addEventListener('click', closeToc);
+
+  tocItems.forEach(item => {
+    item.addEventListener('click', () => {
+      closeToc();
+    });
+  });
+
+  // ESC 关闭
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && tocPanel.classList.contains('is-open')) {
+      closeToc();
+    }
+  });
+})();
+
+// ============================================
+// DISCLAIMER OVERLAY
+// ============================================
+(function initDisclaimer() {
+  const overlay = document.getElementById('disclaimerOverlay');
+  const acceptBtn = document.getElementById('disclaimerAccept');
+  if (!overlay || !acceptBtn) return;
+  if (localStorage.getItem('lzu_guide_disclaimer_accepted')) {
+    overlay.style.display = 'none';
+    return;
+  }
+  acceptBtn.addEventListener('click', () => {
+    localStorage.setItem('lzu_guide_disclaimer_accepted', '1');
+    overlay.style.animation = 'disclaimerOut 300ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
+    setTimeout(() => { overlay.style.display = 'none'; }, 300);
+  });
+})();
+
+// ============================================
+// SCANLINE EFFECT
+// ============================================
+(function initScanline() {
+  const scanline = document.getElementById('scanline');
+  if (!scanline) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(max-width: 680px)').matches) return;
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      scanline.classList.add('active');
+      setTimeout(() => {
+        scanline.remove();
+      }, 600);
+    }, 200);
+  });
+})();
+
+// ============================================
+// SCROLL PROGRESS BAR
+// ============================================
+(function initScrollProgress() {
+  const progressBar = document.getElementById('scrollProgress');
+  if (!progressBar) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    progressBar.style.display = 'none';
+    return;
+  }
+
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+  }
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+})();
+
+// ============================================
+// 数字跳变动画
+// ============================================
+function animateNumber(el, target, duration = 1200) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = String(target).padStart(2, '0');
+    return;
+  }
+
+  const startTime = performance.now();
+  const startVal = 0;
+
+  function step(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+
+    // easeOutExpo
+    const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+    const current = Math.floor(startVal + (target - startVal) * eased);
+
+    el.textContent = String(current).padStart(2, '0');
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    }
+  }
+
+  requestAnimationFrame(step);
+}
+
+// ============================================
+// Hero 图片加载动画
+// ============================================
+(function initHeroImage() {
+  const hero = document.querySelector('.hero');
+  const heroImg = document.querySelector('.hero-image');
+  if (!hero || !heroImg) return;
+
+  if (heroImg.complete) {
+    hero.classList.add('loaded');
+  } else {
+    heroImg.addEventListener('load', () => {
+      hero.classList.add('loaded');
+    });
+  }
+})();
+
+// ============================================
+// 视差滚动效果
+// ============================================
+(function initParallax() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(max-width: 980px)').matches) return;
+
+  const heroBg = document.querySelector('.hero-bg');
+  const decoNumber = document.querySelector('.deco-number');
+
+  function handleScroll() {
+    const scrollY = window.scrollY;
+    const heroHeight = document.querySelector('.hero')?.offsetHeight || 0;
+
+    if (scrollY < heroHeight) {
+      if (heroBg) {
+        heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
+      }
+      if (decoNumber) {
+        decoNumber.style.transform = `translateY(${scrollY * 0.15}px)`;
+        decoNumber.style.opacity = Math.max(0, 0.5 - scrollY * 0.001);
+      }
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+})();
+
+// ============================================
+// SCROLL REVEAL (IntersectionObserver)
+// ============================================
+(function initScrollReveal() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.guide-card, .resource-link, .route-list article, .section-heading, .stat-num').forEach(el => {
+      el.classList.add('is-visible');
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+    return;
+  }
+
+  const isMobile = window.matchMedia('(max-width: 680px)').matches;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = isMobile ? 0 : calculateStaggerDelay(el);
+
+        setTimeout(() => {
+          el.classList.add('is-visible');
+
+          // 数字跳变
+          if (el.classList.contains('stat-num') && el.dataset.count) {
+            animateNumber(el, parseInt(el.dataset.count), 1500);
+          }
+        }, delay);
+
+        observer.unobserve(el);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -60px 0px'
+  });
+
+  function calculateStaggerDelay(el) {
+    const parent = el.parentElement;
+    if (!parent) return 0;
+    const siblings = Array.from(parent.children);
+    const index = siblings.indexOf(el);
+    const columnsMatch = getComputedStyle(parent).gridTemplateColumns;
+    if (!columnsMatch || columnsMatch === 'none') return index * 80;
+    const columns = columnsMatch.split(' ').length;
+    const colIndex = index % columns;
+    return colIndex * 80 + Math.floor(index / columns) * 50;
+  }
+
+  // 观察 section headings
+  document.querySelectorAll('.section-heading').forEach(el => {
+    observer.observe(el);
+  });
+
+  // 观察数字
+  document.querySelectorAll('.stat-num').forEach(el => {
+    observer.observe(el);
+  });
+
+  function observeDynamicElements() {
+    document.querySelectorAll('.guide-card:not(.is-visible), .resource-link:not(.is-visible), .route-list article:not(.is-visible)').forEach(el => {
+      observer.observe(el);
+    });
+  }
+
+  observeDynamicElements();
+  window.__refreshScrollReveal = observeDynamicElements;
+})();
+
+// ============================================
+// CARD RENDERING
+// ============================================
 function cardMatches(item, keyword) {
   const inFilter = activeFilter === "all" || item.category === activeFilter;
   const haystack = [item.title, item.tag, item.summary, ...item.points].join(" ").toLowerCase();
@@ -171,9 +425,10 @@ function cardMatches(item, keyword) {
 function renderCards() {
   const keyword = searchInput.value.trim().toLowerCase();
   const visibleItems = guideItems.filter((item) => cardMatches(item, keyword));
+  const total = guideItems.length;
 
-  cardGrid.innerHTML = visibleItems.map((item) => `
-    <article class="guide-card" data-id="${item.id}">
+  cardGrid.innerHTML = visibleItems.map((item, idx) => `
+    <article class="guide-card" data-id="${item.id}" style="animation-delay: ${idx * 30}ms">
       <header>
         <h3>${item.title}</h3>
         <span class="badge">${item.tag}</span>
@@ -183,14 +438,26 @@ function renderCards() {
         ${item.points.map((point) => `<li>${point}</li>`).join("")}
       </ul>
       <div class="card-actions">
-        ${item.links.length ? item.links.map((link) => `<a href="${link.href}" target="_blank" rel="noopener noreferrer">${link.label}</a>`).join("") : "<a href=\"#update\">等待补充入口</a>"}
+        ${item.links.length ? item.links.map((link) => `<a class="card-link" href="${link.href}" target="_blank" rel="noopener noreferrer"><span>${link.label}</span><svg class="link-external-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 2H4C2.89543 2 2 2.89543 2 4V12C2 13.1046 2.89543 14 4 14H12C13.1046 14 14 13.1046 14 12V10M10 2H14M14 2V6M14 2L7 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>`).join("") : "<a class=\"card-link card-link-empty\" href=\"#update\">等待补充入口</a>"}
       </div>
     </article>
   `).join("");
 
   emptyState.hidden = visibleItems.length > 0;
+
+  // 更新筛选计数
+  if (filterCount) {
+    filterCount.textContent = `${visibleItems.length} / ${total}`;
+  }
+
+  if (window.__refreshScrollReveal) {
+    window.__refreshScrollReveal();
+  }
 }
 
+// ============================================
+// LINK RENDERING
+// ============================================
 function renderLinks() {
   linkGrid.innerHTML = resourceLinks.map(([title, description, href]) => `
     <a class="resource-link" href="${href}" target="_blank" rel="noopener noreferrer">
@@ -198,8 +465,15 @@ function renderLinks() {
       <span>${description}</span>
     </a>
   `).join("");
+
+  if (window.__refreshScrollReveal) {
+    setTimeout(window.__refreshScrollReveal, 50);
+  }
 }
 
+// ============================================
+// FILTER HANDLING
+// ============================================
 function setFilter(nextFilter) {
   activeFilter = nextFilter;
   document.querySelectorAll(".filter").forEach((item) => {
@@ -212,6 +486,9 @@ document.querySelectorAll(".filter").forEach((button) => {
   button.addEventListener("click", () => setFilter(button.dataset.filter));
 });
 
+// ============================================
+// DATA-FOCUS JUMP
+// ============================================
 document.querySelectorAll("[data-focus]").forEach((link) => {
   link.addEventListener("click", () => {
     const target = link.dataset.focus;
@@ -224,33 +501,218 @@ document.querySelectorAll("[data-focus]").forEach((link) => {
       card.scrollIntoView({ block: "center", behavior: "smooth" });
       card.animate(
         [
-          { transform: "translateY(0)", boxShadow: "0 10px 28px rgba(23, 32, 51, .06)" },
-          { transform: "translateY(-6px)", boxShadow: "0 18px 46px rgba(23, 74, 124, .22)" },
-          { transform: "translateY(0)", boxShadow: "0 10px 28px rgba(23, 32, 51, .06)" }
+          { boxShadow: "0 2px 8px rgba(45, 42, 50, 0.06)", borderColor: "#F0E6D8" },
+          { boxShadow: "0 0 0 4px rgba(255, 107, 53, 0.2), 0 8px 32px rgba(255, 107, 53, 0.15)", borderColor: "#FF6B35" },
+          { boxShadow: "0 2px 8px rgba(45, 42, 50, 0.06)", borderColor: "#F0E6D8" }
         ],
-        { duration: 900, easing: "ease-out" }
+        { duration: 1200, easing: "cubic-bezier(0.34, 1.56, 0.64, 1)" }
       );
     }, 120);
   });
 });
 
+// ============================================
+// SEARCH INTERACTION
+// ============================================
 searchInput.addEventListener("input", renderCards);
-clearSearch.addEventListener("click", () => {
-  searchInput.value = "";
-  searchInput.focus();
-  renderCards();
-});
+if (searchForm) {
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    // 聚焦到结果区域
+    const cardGrid = document.querySelector("#cardGrid");
+    if (cardGrid && searchInput.value.trim()) {
+      cardGrid.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+}
 
+// ============================================
+// VERIFIED DATE
+// ============================================
 if (verifiedDateNode) {
   verifiedDateNode.textContent = verifiedDate;
 }
 
+// ============================================
+// INITIAL RENDER
+// ============================================
 renderCards();
 renderLinks();
 
-// --- Add disclaimer out animation ---
-(function addStyle() {
-  const style = document.createElement('style');
-  style.textContent = '@keyframes disclaimerOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.95)}}';
-  document.head.appendChild(style);
+// ============================================
+// ENTRANCE ANIMATION SEQUENCE
+// ============================================
+(function initEntranceSequence() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(max-width: 680px)').matches) return;
+
+  const header = document.querySelector('.site-header');
+  const heroContent = document.querySelector('.hero-content');
+  const quickGridSection = document.querySelector('.quick-grid-section');
+
+  window.addEventListener('load', () => {
+    // Hero content
+    if (heroContent) {
+      heroContent.style.opacity = '0';
+      heroContent.style.transform = 'translateY(24px)';
+      setTimeout(() => {
+        heroContent.style.transition = 'opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1)';
+        heroContent.style.opacity = '1';
+        heroContent.style.transform = 'translateY(0)';
+      }, 300);
+    }
+
+    // Quick grid items stagger
+    if (quickGridSection) {
+      const items = quickGridSection.querySelectorAll('.quick-item');
+      items.forEach((item, i) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(12px)';
+        setTimeout(() => {
+          item.style.transition = 'opacity 400ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1)';
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+        }, 600 + i * 80);
+      });
+    }
+  });
+})();
+
+// ============================================
+// 回到顶部按钮
+// ============================================
+(function initBackToTop() {
+  const backToTop = document.getElementById('backToTop');
+  if (!backToTop) return;
+
+  backToTop.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+// ============================================
+// 导航栏滚动状态
+// ============================================
+(function initHeaderScroll() {
+  const header = document.querySelector('.site-header');
+  if (!header) return;
+
+  let lastScroll = 0;
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+
+    if (currentScroll > 50) {
+      header.style.boxShadow = '0 4px 20px rgba(45, 42, 50, 0.06)';
+    } else {
+      header.style.boxShadow = 'none';
+    }
+
+    lastScroll = currentScroll;
+  }, { passive: true });
+})();
+
+// ============================================
+// LZU 词云 / 留言墙
+// ============================================
+(function initWordCloud() {
+  const wordCloud = document.getElementById('wordCloud');
+  const wordCloudCount = document.getElementById('wordCloudCount');
+  const messageForm = document.getElementById('messageForm');
+  if (!wordCloud) return;
+
+  // 初始留言词库 - 围绕LZU形状排列
+  const initialWords = [
+    { text: '兰州大学', size: 'lg', x: 38, y: 30 },
+    { text: '自强不息', size: 'md', x: 10, y: 15 },
+    { text: '独树一帜', size: 'md', x: 62, y: 18 },
+    { text: '积石堂', size: 'md', x: 15, y: 55 },
+    { text: '昆仑堂', size: 'md', x: 65, y: 58 },
+    { text: '天山堂', size: 'sm', x: 8, y: 38 },
+    { text: '榆中校区', size: 'sm', x: 72, y: 40 },
+    { text: '城关校区', size: 'sm', x: 5, y: 70 },
+    { text: '夏官营', size: 'sm', x: 75, y: 72 },
+    { text: '新生加油', size: 'sm', x: 30, y: 75 },
+    { text: '未来可期', size: 'sm', x: 55, y: 78 },
+    { text: '青春', size: 'xs', x: 25, y: 5 },
+    { text: '梦想', size: 'xs', x: 48, y: 8 },
+    { text: '陪伴', size: 'xs', x: 20, y: 48 },
+    { text: '成长', size: 'xs', x: 50, y: 50 },
+    { text: '遇见', size: 'xs', x: 42, y: 65 },
+    { text: '启程', size: 'xs', x: 60, y: 28 },
+    { text: 'LZU', size: 'lg', x: 42, y: 45 },
+  ];
+
+  let words = [...initialWords];
+  let animationDelay = 0;
+
+  function renderWordCloud() {
+    wordCloud.innerHTML = '';
+    animationDelay = 0;
+
+    words.forEach((word, index) => {
+      const span = document.createElement('span');
+      span.className = `cloud-word size-${word.size}`;
+      span.textContent = word.text;
+      span.style.left = word.x + '%';
+      span.style.top = word.y + '%';
+      span.style.animationDelay = animationDelay + 'ms';
+      wordCloud.appendChild(span);
+      animationDelay += 80;
+    });
+
+    if (wordCloudCount) {
+      wordCloudCount.textContent = words.length + ' 条祝福';
+    }
+  }
+
+  renderWordCloud();
+
+  // 留言提交
+  if (messageForm) {
+    messageForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nameInput = document.getElementById('messageName');
+      const contentInput = document.getElementById('messageContent');
+      const content = contentInput.value.trim();
+      const name = nameInput.value.trim();
+
+      if (!content) return;
+
+      // 提取关键词（取前4-6个字作为词云词）
+      let keyword = content.length > 8 ? content.substring(0, 6) + '...' : content;
+      if (name) {
+        keyword = name + '：' + keyword.substring(0, 4);
+      }
+
+      // 随机位置（在LZU形状范围内）
+      const sizes = ['sm', 'sm', 'xs', 'xs', 'md'];
+      const size = sizes[Math.floor(Math.random() * sizes.length)];
+      const x = 8 + Math.random() * 80;
+      const y = 10 + Math.random() * 75;
+
+      words.unshift({ text: keyword, size, x, y });
+
+      // 保持最多30个词
+      if (words.length > 30) {
+        words = words.slice(0, 30);
+      }
+
+      renderWordCloud();
+
+      // 清空输入
+      contentInput.value = '';
+
+      // 简单的提交成功反馈
+      const btn = messageForm.querySelector('.message-submit');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span>已送达 ✓</span>';
+      btn.style.background = 'linear-gradient(135deg, #059669, #10B981)';
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.background = '';
+      }, 1500);
+    });
+  }
 })();

@@ -1,9 +1,9 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>兰州大学新生入学手册</title>
+    <title>兰州大学新生入学手册 // LZU FRESHMAN GUIDE</title>
     <meta name="description" content="兰州大学新生入学手册：宿舍、地图、食堂、通讯录、校园卡、军训、转专业、校历、通勤出行、快递站指引。面向新生的公开网页手册。">
     <meta name="keywords" content="兰州大学,新生指南,榆中校区,城关校区,LZU,入学手册,校园地图,宿舍,食堂,校园卡,军训,转专业,校历">
     <meta name="author" content="LZU学生自制">
@@ -13,136 +13,523 @@
     <meta property="og:url" content="https://zhangxiyuan-star.github.io/lzu-freshman-guide/">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="robots" content="index, follow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <!-- 噪点纹理层 -->
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <!-- 网格背景 -->
+    <div class="grid-bg" aria-hidden="true"></div>
+
+    <!-- 扫描线效果 -->
+    <div class="scanline" id="scanline"></div>
+
+    <!-- 滚动进度条 -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- 目录弹窗导航 -->
+    <div class="toc-overlay" id="tocOverlay" aria-hidden="true"></div>
+    <div class="toc-panel" id="tocPanel" role="dialog" aria-label="目录导航" aria-hidden="true">
+      <div class="toc-header">
+        <span class="toc-title">// TABLE OF CONTENTS · 目录</span>
+        <button class="toc-close" id="tocClose" aria-label="关闭目录">×</button>
+      </div>
+      <nav class="toc-nav">
+        <a href="#top" class="toc-item toc-main">
+          <span class="toc-num">00</span>
+          <span class="toc-text">首页 / 概览</span>
+          <span class="toc-arrow">→</span>
+        </a>
+        <a href="#guide" class="toc-item toc-main">
+          <span class="toc-num">01</span>
+          <span class="toc-text">入学事项全览</span>
+          <span class="toc-arrow">→</span>
+        </a>
+        <div class="toc-subgroup">
+          <a href="#guide" data-focus="dorm" class="toc-item toc-sub">
+            <span class="toc-num">01.1</span>
+            <span class="toc-text">宿舍入住</span>
+          </a>
+          <a href="#guide" data-focus="canteen" class="toc-item toc-sub">
+            <span class="toc-num">01.2</span>
+            <span class="toc-text">食堂介绍</span>
+          </a>
+          <a href="#guide" data-focus="card" class="toc-item toc-sub">
+            <span class="toc-num">01.3</span>
+            <span class="toc-text">校园卡</span>
+          </a>
+          <a href="#guide" data-focus="military" class="toc-item toc-sub">
+            <span class="toc-num">01.4</span>
+            <span class="toc-text">军训介绍</span>
+          </a>
+          <a href="#guide" data-focus="major" class="toc-item toc-sub">
+            <span class="toc-num">01.5</span>
+            <span class="toc-text">转专业</span>
+          </a>
+          <a href="#guide" data-focus="calendar" class="toc-item toc-sub">
+            <span class="toc-num">01.6</span>
+            <span class="toc-text">校历</span>
+          </a>
+          <a href="#guide" data-focus="express" class="toc-item toc-sub">
+            <span class="toc-num">01.7</span>
+            <span class="toc-text">快递站指引</span>
+          </a>
+        </div>
+        <a href="#map" class="toc-item toc-main">
+          <span class="toc-num">02</span>
+          <span class="toc-text">两校区</span>
+          <span class="toc-arrow">→</span>
+        </a>
+        <div class="toc-subgroup">
+          <a href="#map" class="toc-item toc-sub">
+            <span class="toc-num">02.1</span>
+            <span class="toc-text">榆中校区</span>
+          </a>
+          <a href="#map" class="toc-item toc-sub">
+            <span class="toc-num">02.2</span>
+            <span class="toc-text">城关校区</span>
+          </a>
+          <a href="#map" class="toc-item toc-sub">
+            <span class="toc-num">02.3</span>
+            <span class="toc-text">通勤校车</span>
+          </a>
+        </div>
+        <a href="#links" class="toc-item toc-main">
+          <span class="toc-num">03</span>
+          <span class="toc-text">资源链接集</span>
+          <span class="toc-arrow">→</span>
+        </a>
+      </nav>
+    </div>
+
     <header class="site-header" id="top">
-      <a class="brand" href="#top" aria-label="返回顶部">
-        <span class="brand-mark">LZU</span>
-        <span>新生入学手册</span>
-      </a>
+      <button class="brand brand-btn" id="brandBtn" aria-label="打开目录导航" aria-expanded="false">
+        <span class="brand-mark">
+          <img class="brand-logo" src="assets/lzu-logo.png" alt="兰州大学校徽" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';">
+          <span class="brand-mark-inner" style="display:none;">LZU</span>
+        </span>
+        <span class="brand-text">
+          <span class="brand-title">新生入学手册</span>
+          <span class="brand-sub">FRESHMAN GUIDE · EST.2026</span>
+        </span>
+      </button>
       <nav class="top-nav" aria-label="主导航">
-        <a href="#guide">手册</a>
-        <a href="#map">地图</a>
-        <a href="#links">链接</a>
-        <a href="#update">维护</a>
+        <a href="#guide"><span class="nav-num">01</span>手册</a>
+        <a href="#map"><span class="nav-num">02</span>地图</a>
+        <a href="#links"><span class="nav-num">03</span>链接</a>
       </nav>
     </header>
 
     <!-- 免责声明弹窗 -->
     <div class="disclaimer-overlay" id="disclaimerOverlay">
       <div class="disclaimer-card">
-        <h3>📌 重要提示</h3>
-        <p>本指南由学生自发搭建，<strong>非兰州大学官方平台</strong>。所有信息均基于公开资料整理，可能存在延迟或误差。</p>
+        <div class="disclaimer-topbar">
+          <span class="disclaimer-eyebrow">// NOTICE · 重要提示</span>
+          <span class="disclaimer-tag">SYSTEM</span>
+        </div>
+        <h3>本指南由学生自发搭建</h3>
+        <div class="disclaimer-divider"></div>
+        <p><strong>非兰州大学官方平台</strong>。所有信息均基于公开资料整理，可能存在延迟或误差。</p>
         <p>入学相关事宜请以<a href="https://www.lzu.edu.cn/" target="_blank" rel="noopener noreferrer">兰州大学官网</a>及官方公众号通知为准。</p>
-        <button class="disclaimer-btn" id="disclaimerAccept">我已了解，进入手册</button>
+        <button class="disclaimer-btn" id="disclaimerAccept">
+          <span class="btn-text">ACCEPT / 确认进入</span>
+          <span class="btn-arrow">→</span>
+        </button>
       </div>
     </div>
 
     <main>
-      <section class="hero" aria-labelledby="hero-title" style="background:linear-gradient(135deg,#0a2d4f 0%,#174a7c 40%,#2b8a9e 100%)">
-        <img class="hero-image" loading="eager" src="assets/campus-hero.svg" alt="兰州大学校园风光" onerror="this.style.display='none'">
+      <!-- HERO 区域 -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-bg">
+          <img class="hero-image" loading="eager" src="assets/hero-campus.jpg" alt="兰州大学积石堂" onerror="this.src='assets/campus-hero.svg'">
+          <div class="hero-overlay"></div>
+          <div class="hero-scanlines" aria-hidden="true"></div>
+        </div>
+
+        <!-- 装饰性大数字 -->
+        <div class="hero-deco" aria-hidden="true">
+          <span class="deco-number">2026</span>
+          <span class="deco-line"></span>
+          <span class="deco-label">FRESHMAN<br>ONBOARDING</span>
+        </div>
+
+        <!-- 左侧垂直标签 -->
+        <div class="hero-vertical-label" aria-hidden="true">
+          <span>Lanzhou University · 兰州大学 · 1909-</span>
+        </div>
+
         <div class="hero-content">
-          <p class="eyebrow">给第一次来到兰大的你</p>
-          <h1 id="hero-title">兰州大学新生入学手册</h1>
-          <p class="hero-copy">把报到前后最容易卡住的事放在一个公开网页里：住哪、去哪、吃什么、怎么联系、校园卡怎么用、军训和转专业要看哪些通知。</p>
-          <p class="source-note">资料入口核验日期：<time id="verifiedDate" datetime="2026-07-15">2026-07-15</time>。具体安排以学校及学院当年通知为准。</p>
-          <form class="search-box" role="search">
-            <label class="sr-only" for="searchInput">搜索手册内容</label>
-            <input id="searchInput" type="search" placeholder="搜索：宿舍、食堂、校园卡、快递、转专业...">
-            <button type="button" id="clearSearch" aria-label="清空搜索">×</button>
-          </form>
+          <div class="hero-meta-row">
+            <span class="meta-dot"></span>
+            <p class="eyebrow">// FRESHMAN ONBOARDING MANUAL</p>
+            <span class="meta-line"></span>
+          </div>
+          <h1 id="hero-title">
+            <span class="h1-line">兰州大学</span>
+            <span class="h1-line h1-accent">新生入学</span>
+            <span class="h1-line">手册<span class="cursor">_</span></span>
+          </h1>
+          <div class="hero-bottom-row">
+            <p class="hero-copy">把报到前后最容易卡住的事放在一个公开网页里：住哪、去哪、吃什么、怎么联系、校园卡怎么用、军训和转专业要看哪些通知。</p>
+            <div class="hero-stats">
+              <div class="stat-item">
+                <span class="stat-num" data-count="12">00</span>
+                <span class="stat-label">指南条目</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num" data-count="13">00</span>
+                <span class="stat-label">资源链接</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num" data-count="2">00</span>
+                <span class="stat-label">校区覆盖</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-action-row">
+            <form class="search-box" role="search">
+              <label class="sr-only" for="searchInput">搜索手册内容</label>
+              <span class="search-prefix">⌕</span>
+              <input id="searchInput" type="search" placeholder="搜索：宿舍、食堂、校园卡...">
+              <button type="submit" class="search-submit" aria-label="搜索">搜索</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- 滚动提示 -->
+        <div class="scroll-hint" aria-hidden="true">
+          <span class="scroll-line"></span>
+          <span class="scroll-text">SCROLL</span>
         </div>
       </section>
 
-      <div class="section-divider"></div>
-
-      <section class="quick-grid" aria-label="新生高频入口">
-        <a href="#guide" data-focus="dorm">宿舍入住</a>
-        <a href="#map">校园地图</a>
-        <a href="#guide" data-focus="canteen">食堂介绍</a>
-        <a href="#guide" data-focus="card">校园卡</a>
-        <a href="#guide" data-focus="calendar">校历</a>
-        <a href="#guide" data-focus="express">快递站</a>
+      <!-- 快捷入口 -->
+      <section class="quick-grid-section" aria-label="新生高频入口">
+        <div class="quick-grid-header">
+          <span class="quick-grid-label">// QUICK ACCESS · 高频入口</span>
+          <span class="quick-grid-count">06 ENTRIES</span>
+        </div>
+        <div class="quick-grid">
+          <a href="#guide" data-focus="dorm" class="quick-item">
+            <span class="quick-num">01</span>
+            <span class="quick-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 20L24 8L40 20V38C40 39.1046 39.1046 40 38 40H10C8.89543 40 8 39.1046 8 38V20Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18 40V26H30V40" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M24 8V14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="24" cy="5" r="2" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="quick-text">宿舍入住</span>
+            <span class="quick-arrow">→</span>
+          </a>
+          <a href="#map" class="quick-item">
+            <span class="quick-num">02</span>
+            <span class="quick-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M38 10L26 16L14 10L4 16V38L14 32L26 38L38 32L44 35V13L38 10Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 10V32" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M26 16V38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="20" cy="22" r="3" fill="currentColor"/>
+                <path d="M20 25V30" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="quick-text">校园地图</span>
+            <span class="quick-arrow">→</span>
+          </a>
+          <a href="#guide" data-focus="canteen" class="quick-item">
+            <span class="quick-num">03</span>
+            <span class="quick-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C12 16.4772 16.4772 12 22 12H26C31.5228 12 36 16.4772 36 22V28C36 33.5228 31.5228 38 26 38H22C16.4772 38 12 33.5228 12 28V22Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 20H36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M20 8V12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M28 8V12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M24 38V42" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M18 42H30" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="quick-text">食堂介绍</span>
+            <span class="quick-arrow">→</span>
+          </a>
+          <a href="#guide" data-focus="card" class="quick-item">
+            <span class="quick-num">04</span>
+            <span class="quick-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="12" width="36" height="24" rx="3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 20H42" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <rect x="10" y="26" width="12" height="6" rx="1.5" fill="currentColor" opacity="0.3"/>
+                <path d="M32 26H38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M32 31H36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="38" cy="16" r="1.5" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="quick-text">校园卡</span>
+            <span class="quick-arrow">→</span>
+          </a>
+          <a href="#guide" data-focus="calendar" class="quick-item">
+            <span class="quick-num">05</span>
+            <span class="quick-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="10" width="36" height="30" rx="3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 18H42" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M16 6V14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M32 6V14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="15" cy="27" r="2" fill="currentColor"/>
+                <circle cx="24" cy="27" r="2" fill="currentColor"/>
+                <circle cx="33" cy="27" r="2" stroke="currentColor" stroke-width="2"/>
+                <circle cx="15" cy="35" r="2" stroke="currentColor" stroke-width="2"/>
+                <circle cx="24" cy="35" r="2" fill="currentColor" opacity="0.5"/>
+              </svg>
+            </span>
+            <span class="quick-text">校历</span>
+            <span class="quick-arrow">→</span>
+          </a>
+          <a href="#guide" data-focus="express" class="quick-item">
+            <span class="quick-num">06</span>
+            <span class="quick-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 16L24 8L40 16V32L24 40L8 32V16Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 16L24 24L40 16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M24 24V40" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M16 12L32 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 3"/>
+              </svg>
+            </span>
+            <span class="quick-text">快递站</span>
+            <span class="quick-arrow">→</span>
+          </a>
+        </div>
       </section>
 
-      <div class="section-divider wave-divider">
-        <svg viewBox="0 0 1440 48" preserveAspectRatio="none"><path d="M0 24 Q360 0 720 24 T1440 24 V48 H0 Z" fill="#fbfcfe"/></svg>
-      </div>
-
+      <!-- 入学事项 -->
       <section class="section-shell" id="guide" aria-labelledby="guide-title">
         <div class="section-heading">
-          <span class="section-icon">📋</span><p class="eyebrow">Guide</p>
-          <h2 id="guide-title">入学事项</h2>
-          <p>这些内容适合公开展示。每一块都保留了“官方核验入口”，方便之后按当年通知更新。</p>
+          <div class="heading-top">
+            <p class="eyebrow">// GUIDE · 入学事项</p>
+            <span class="heading-tag">SECTION_01</span>
+          </div>
+          <h2 id="guide-title">
+            <span class="h2-bracket">[</span>
+            入学事项全览
+            <span class="h2-bracket">]</span>
+          </h2>
+          <p class="heading-desc">这些内容适合公开展示。每一块都保留了官方核验入口，方便之后按当年通知更新。</p>
         </div>
         <div class="toolbar" aria-label="内容筛选">
-          <button class="filter is-active" type="button" data-filter="all">全部</button>
-          <button class="filter" type="button" data-filter="life">生活</button>
-          <button class="filter" type="button" data-filter="study">学业</button>
-          <button class="filter" type="button" data-filter="service">服务</button>
-          <button class="filter" type="button" data-filter="campus">校园</button>
+          <button class="filter is-active" type="button" data-filter="all">
+            <span class="filter-dot"></span>全部
+          </button>
+          <button class="filter" type="button" data-filter="life">
+            <span class="filter-dot"></span>生活
+          </button>
+          <button class="filter" type="button" data-filter="study">
+            <span class="filter-dot"></span>学业
+          </button>
+          <button class="filter" type="button" data-filter="service">
+            <span class="filter-dot"></span>服务
+          </button>
+          <button class="filter" type="button" data-filter="campus">
+            <span class="filter-dot"></span>校园
+          </button>
+          <span class="filter-count" id="filterCount">12 / 12</span>
         </div>
         <div class="card-grid" id="cardGrid"></div>
-        <p class="empty-state" id="emptyState" hidden>没有找到匹配内容，换个关键词试试。</p>
+        <p class="empty-state" id="emptyState" hidden>// NO RESULTS · 没有找到匹配内容，换个关键词试试。</p>
       </section>
 
+      <!-- 地图区域 -->
       <section class="map-section" id="map" aria-labelledby="map-title">
-        <div class="section-heading">
-          <span class="section-icon">🗺️</span><p class="eyebrow">Map</p>
-          <h2 id="map-title">地图与到校路线</h2>
-          <p>已接入兰州大学官网“校园地图”入口，后续可以继续把校区导视图、快递站点和到校路线细化到真实点位。</p>
-        </div>
-        <div class="map-banner"><img class="map-banner-img" loading="lazy" src="assets/campus-banner.jpg" alt="兰州大学城关校区风光" loading="lazy"></div><div class="map-layout">
-          <div class="map-panel" aria-label="校园地图示意">
-            <img class="campus-map-image" loading="lazy" src="assets/campus-map.svg" alt="兰州大学两大校区导览图，标注了榆中校区和城关校区的主要建筑、食堂、宿舍、运动场、快递站和校车路线">
+        <div class="map-section-inner">
+          <div class="section-heading light">
+            <div class="heading-top">
+              <p class="eyebrow">// MAP &amp; ROUTING · 地图与路线</p>
+              <span class="heading-tag">SECTION_02</span>
+            </div>
+            <h2 id="map-title">
+              两校区
+            </h2>
           </div>
-          <div class="route-list">
-            <article>
-              <h3>榆中校区</h3>
-              <p>地址：兰州市榆中县夏官营镇。本科生主校区，距离市区约 50 公里。主要建筑：天山堂、昆仑堂、凌云楼。从兰州站乘 903 路公交或校车可达。</p>
-            </article>
-            <article>
-              <h3>城关校区</h3>
-              <p>地址：兰州市城关区天水南路 222 号。研究生和部分学院所在地，紧邻市区。主要建筑：观云楼、齐云楼、积石堂。地铁 1 号线兰州大学站直达。</p>
-            </article>
-            <article>
-              <h3>通勤校车</h3>
-              <p>校车每天往返两校区，约 1 小时车程，凭校园卡刷卡乘车。具体时刻表请关注后勤保障部通知，高峰期建议提前 20 分钟到达候车点。</p>
-            </article>
+
+          <div class="map-banner">
+            <img class="map-banner-img" loading="lazy" src="assets/yuzhong-campus.jpg" alt="兰州大学榆中校区">
+            <div class="map-banner-overlay">
+              <span class="banner-coord">35.95°N 104.10°E</span>
+              <span class="banner-label">YUZHONG CAMPUS · 榆中校区</span>
+            </div>
+          </div>
+
+          <div class="map-layout">
+            <div class="map-panel" aria-label="城关校区">
+              <div class="map-panel-header">
+                <span class="map-panel-title">CHENGGUAN CAMPUS</span>
+                <span class="map-panel-status">● 城关校区</span>
+              </div>
+              <img class="campus-map-image" loading="lazy" src="assets/chengguan-campus.jpg" alt="兰州大学城关校区夜景">
+            </div>
+            <div class="route-list">
+              <article>
+                <div class="route-num">
+                  <span>01</span>
+                  <div class="route-line"></div>
+                </div>
+                <div class="route-content">
+                  <h3>榆中校区</h3>
+                  <p>地址：兰州市榆中县夏官营镇。本科生主校区，距离市区约 50 公里。主要建筑：天山堂、昆仑堂、凌云楼。</p>
+                  <div class="route-tags">
+                    <span>本科生主区</span>
+                    <span>夏官营镇</span>
+                  </div>
+                </div>
+              </article>
+              <article>
+                <div class="route-num">
+                  <span>02</span>
+                  <div class="route-line"></div>
+                </div>
+                <div class="route-content">
+                  <h3>城关校区</h3>
+                  <p>地址：兰州市城关区天水南路 222 号。研究生和部分学院所在地，紧邻市区。地铁 1 号线直达。</p>
+                  <div class="route-tags">
+                    <span>研究生</span>
+                    <span>市区核心</span>
+                  </div>
+                </div>
+              </article>
+              <article>
+                <div class="route-num">
+                  <span>03</span>
+                </div>
+                <div class="route-content">
+                  <h3>通勤校车</h3>
+                  <p>校车每天往返两校区，约 1 小时车程，凭校园卡刷卡乘车。高峰期建议提前 20 分钟到达候车点。</p>
+                  <div class="route-tags">
+                    <span>~60 min</span>
+                    <span>校园卡</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- 校园地图展示区 -->
+          <div class="campus-map-section" aria-label="校园地图">
+            <div class="campus-map-section-header">
+              <span class="campus-map-section-label">// CAMPUS MAP · 校园地图</span>
+              <a href="https://www.lzu.edu.cn/" target="_blank" rel="noopener noreferrer" class="campus-map-section-link">
+                打开官方地图 →
+              </a>
+            </div>
+            <div class="campus-map-display">
+              <div class="campus-map-placeholder">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="map-icon-large">
+                  <path d="M38 10L26 16L14 10L4 16V38L14 32L26 38L38 32L44 35V13L38 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M14 10V32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M26 16V38" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="20" cy="22" r="3" fill="currentColor"/>
+                  <path d="M20 25V30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <p>校园地图展示区</p>
+                <span>接入兰州大学官方校园地图入口</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
+      <!-- 常用链接 -->
       <section class="section-shell" id="links" aria-labelledby="links-title">
         <div class="section-heading">
-          <span class="section-icon">🔗</span><p class="eyebrow">Links</p>
-          <h2 id="links-title">常用链接</h2>
-          <p>公开网页最有价值的部分之一，是把分散入口集中起来。下面的链接建议发布前逐条核验。</p>
+          <div class="heading-top">
+            <p class="eyebrow">// RESOURCE LINKS · 常用链接</p>
+            <span class="heading-tag">SECTION_03</span>
+          </div>
+          <h2 id="links-title">
+            <span class="h2-bracket">[</span>
+            资源链接集
+            <span class="h2-bracket">]</span>
+          </h2>
+          <p class="heading-desc">公开网页最有价值的部分之一，是把分散入口集中起来。下面的链接建议发布前逐条核验。</p>
         </div>
         <div class="link-grid" id="linkGrid"></div>
       </section>
 
-      <section class="update-section" id="update" aria-labelledby="update-title">
-        <div>
-          <span class="section-icon">🛠️</span><p class="eyebrow">Maintain</p>
-          <h2 id="update-title">更新原则</h2>
-          <p>宿舍分配、军训安排、快递站点、校历和转专业政策都会随年份变化。这个网页适合采用“稳定说明 + 当年通知链接”的维护方式。</p>
+      <!-- 留言墙 / LZU词云 -->
+      <section class="message-wall-section" id="message-wall" aria-labelledby="message-wall-title">
+        <div class="message-wall-inner">
+          <div class="message-wall-header">
+            <h2 id="message-wall-title" class="message-wall-title">
+              <span>留言墙</span> · LZU 词云
+            </h2>
+            <p class="message-wall-subtitle">留下你的美好祝愿，汇聚成属于兰州大学的词云。每一句祝福，都是 LZUer 的青春印记。</p>
+          </div>
+          <div class="message-wall-layout">
+            <div class="message-form-card">
+              <h3>留下你的祝福</h3>
+              <p class="message-form-desc">写下你对兰大的印象、期待或祝福，你的留言将汇入 LZU 词云</p>
+              <form class="message-form" id="messageForm">
+                <div class="form-group">
+                  <label for="messageName">昵称</label>
+                  <input type="text" id="messageName" placeholder="你的昵称" maxlength="20">
+                </div>
+                <div class="form-group">
+                  <label for="messageContent">留言</label>
+                  <textarea id="messageContent" placeholder="写下你的祝福..." maxlength="100"></textarea>
+                </div>
+                <button type="submit" class="message-submit">
+                  <span>发送祝福</span>
+                  <span class="btn-arrow">→</span>
+                </button>
+              </form>
+            </div>
+            <div class="word-cloud-area">
+              <div class="word-cloud-header">
+                <h3>LZU 词云</h3>
+                <span class="word-cloud-count" id="wordCloudCount">12 条祝福</span>
+              </div>
+              <div class="word-cloud-container">
+                <div class="lzu-word-cloud" id="wordCloud">
+                  <!-- 词云由JS动态生成 -->
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <ol class="checklist">
-          <li>发布前核对当年迎新通知、教务处通知和学院群公告。</li>
-          <li>把容易变化的时间、地点、电话标注更新时间。</li>
-          <li>收集新生反馈，把高频问题补成独立卡片。</li>
-          <li>部署到 GitHub Pages、Vercel、Netlify 或学校服务器，使所有人可访问。</li>
-        </ol>
       </section>
+
     </main>
 
     <footer class="site-footer">
-      <p>⚠ 本网站为非官方学生自制项目，所有信息仅供参考。重要事项以<a href="https://www.lzu.edu.cn/" target="_blank" rel="noopener noreferrer">兰州大学官方通知</a>为准。</p>
-      <a href="#top">回到顶部</a>
+      <div class="footer-main">
+        <div class="footer-brand">
+          <span class="footer-mark">
+            <img class="footer-logo" src="assets/lzu-logo.png" alt="兰州大学校徽" onerror="this.style.display='none';this.parentElement.textContent='LZU';">
+          </span>
+          <div class="footer-brand-text">
+            <span class="footer-title">兰州大学新生入学手册</span>
+            <span class="footer-sub">Student-Made · Non-Official · 2026</span>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="#guide">手册</a>
+          <a href="#map">地图</a>
+          <a href="#links">链接</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-disclaimer">⚠ 本网站为非官方学生自制项目，所有信息仅供参考。重要事项以<a href="https://www.lzu.edu.cn/" target="_blank" rel="noopener noreferrer">兰州大学官方通知</a>为准。</p>
+        <a href="#top" class="back-to-top" id="backToTop">
+          <span class="btt-arrow">↑</span>
+          <span>TOP / 回到顶部</span>
+        </a>
+      </div>
     </footer>
 
     <script src="app.js"></script>
   </body>
 </html>
+
