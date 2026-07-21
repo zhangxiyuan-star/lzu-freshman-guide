@@ -1,8 +1,8 @@
-# 兰州大学新生入学手册
+# 兰大新生网页 · 兰州大学新生入学手册
 
 > **LZU Freshman Guide** — 面向兰州大学新生的公开网页手册，把报到前后最容易卡住的事整理在一个网页里。
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/zhangxiyuan-star/lzu-freshman-guide)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fzhangxiyuan-star%2Flzu-freshman-guide)
 
 ---
 
@@ -12,24 +12,26 @@
 
 ### 核心特色
 
-- **一站式入口**：宿舍、食堂、地图、校园卡、军训、转专业、校历、快递、通勤等高频问题集中展示
-- **稳定维护**：采用「稳定说明 + 当年官方通知链接」的方式，避免内容过时
-- **公开访问**：纯静态页面，可部署到 GitHub Pages / Vercel / 学校服务器，新生无需登录即可查看
-- **响应式设计**：完美适配桌面、平板、手机等各种设备
-- **互动体验**：实时搜索、分类筛选、留言墙词云、目录导航
+- 📋 **入学准备清单**：7 大分类 72 项，支持勾选、筛选、进度跟踪，数据本地保存
+- 🎓 **一站式入口**：宿舍、食堂、地图、校园卡、军训、转专业、校历、快递、通勤等高频问题集中展示
+- 🛡️ **稳定维护**：采用「稳定说明 + 当年官方通知链接」的方式，避免内容过时
+- 🌐 **公开访问**：纯静态页面，可部署到 GitHub Pages / Vercel / 学校服务器，新生无需登录即可查看
+- 📱 **响应式设计**：完美适配桌面、平板、手机等各种设备
+- 🔍 **实时搜索**：支持标题、标签、摘要、要点全文检索
+- 🔒 **安全加固**：XSS 防护、CSP 安全响应头、输入验证
 
 ---
 
 ## 在线访问
 
 - **GitHub Pages**：https://zhangxiyuan-star.github.io/lzu-freshman-guide/ （国内可访问）
-- **Vercel**：https://lzu-freshman-guide.vercel.app/ （国内可能需要科学上网）
+- **Vercel**：https://lzu-freshman-guide.vercel.app/
 
 ---
 
 ## 内容板块
 
-### 入学事项全览（12 个指南条目）
+### 入学事项全览
 
 | 分类 | 条目 |
 |------|------|
@@ -44,39 +46,47 @@
 - 城关校区（研究生及部分学院）
 - 通勤校车信息
 
+### 入学准备清单
+
+- 📄 证件材料
+- 👕 衣物鞋帽
+- 🧴 生活用品
+- 💻 数码电子
+- 💊 药品健康
+- 📚 学习用品
+- 📱 App推荐
+
 ### 资源链接集（14 个官方入口）
 
 兰州大学官网、官方校园地图、电子地图、教务处、学生工作、后勤服务、图书馆、本科招生等。
-
-### 留言墙 · LZU 词云
-
-留下你的美好祝愿，汇聚成属于兰州大学的词云。每一句祝福，都是 LZUer 的青春印记。
-- 支持昵称 + 留言提交
-- 本地持久化存储（刷新不丢失）
-- 最多保留 30 条祝福
 
 ---
 
 ## 技术栈
 
-- **HTML5** — 语义化结构
-- **CSS3** — 自定义属性（CSS Variables）、Grid/Flex 布局、动画效果
-- **原生 JavaScript** — 零框架依赖，轻量高效
+- **HTML5** — 语义化结构 + SEO 结构化数据
+- **CSS3** — 自定义属性（CSS Variables）、Grid/Flex 布局、动画优化
+- **原生 JavaScript** — 零框架依赖，模块化架构，轻量高效
 - **Google Fonts** — Noto Sans SC / Noto Serif SC / JetBrains Mono
+- **Vite** — 构建工具（可选）
+- **Vercel / GitHub Pages** — 部署
 
 ### 功能特性
 
 - 🔍 实时搜索（标题、标签、摘要、要点全文检索）
 - 🏷️ 分类筛选（生活/学业/服务/校园）
 - 📑 目录导航（侧滑面板，快速跳转）
+- 📋 入学准备清单（勾选、筛选、进度、本地存储）
 - 📊 滚动进度条
 - 🔢 数字跳变动画
 - 🎯 卡片高亮定位
-- 💬 留言墙 + LZU 词云
 - ⬆️ 回到顶部按钮
 - 📱 响应式设计（桌面/平板/手机）
 - ♿ 无障碍支持（ARIA 标签、键盘导航）
 - 🌗 `prefers-reduced-motion` 动效降级
+- 🔒 XSS 防护与输入验证
+- 🚀 性能优化（防抖节流、will-change、contain）
+- 🛡️ CSP 安全响应头（Vercel 部署）
 
 ---
 
@@ -89,48 +99,50 @@
 ```bash
 # 方式一：Python
 cd 项目目录
-python -m http.server 8080
+python -m http.server 8000
 
-# 方式二：Node.js
-npx serve .
+# 方式二：Node.js (需要先 npm install)
+npm run dev
 
 # 方式三：直接打开
 双击 index.html
 ```
 
-然后访问 http://localhost:8080
+然后访问 http://localhost:8000
 
 ### 项目结构
 
 ```
 lzu-freshman-guide/
 ├── index.html              # 主页面
-├── styles.css              # 样式（CSS 变量驱动，2000+ 行）
-├── app.js                  # 数据与交互逻辑（700+ 行，模块化）
-├── vercel.json             # Vercel 部署配置
+├── styles.css              # 样式（CSS 变量驱动）
+├── app.js                  # 数据与交互逻辑（模块化）
+├── vercel.json             # Vercel 部署配置（含安全响应头）
+├── package.json            # 项目配置
+├── vite.config.js          # Vite 配置
+├── .env.example            # 环境变量示例
+├── api/                    # Serverless API
+│   ├── hello.js
+│   └── message-wall.js
 ├── README.md               # 项目说明
 ├── HANDOFF.md              # 项目交接文档
 ├── .gitignore
 └── assets/                 # 图片资源
-    ├── lzu-logo.png        # ✅ 校徽（当前使用）
-    ├── hero-campus.jpg     # ✅ 首屏背景（积石堂）
-    ├── yuzhong-campus.jpg  # ✅ 榆中校区
-    ├── chengguan-campus.jpg # ✅ 城关校区
-    ├── lzu-logo.jpg        # 📦 备用校徽
-    ├── campus-hero.svg     # 📦 备用首屏插画
-    └── campus-map.svg      # 📦 备用地图
+    ├── lzu-logo.png        # 校徽
+    ├── hero-campus.jpg     # 首屏背景（积石堂）
+    ├── yuzhong-campus.jpg  # 榆中校区
+    └── chengguan-campus.jpg # 城关校区
 ```
 
 ### 关键数据位置速查
 
 | 要改什么 | 去哪个文件 | 具体位置 |
 |----------|-----------|----------|
-| 指南卡片内容 | `app.js` | `guideItems` 数组 |
-| 资源链接 | `app.js` | `resourceLinks` 数组 |
+| 指南卡片内容 | `app.js` | `guidesData` 数组 |
+| 资源链接 | `app.js` | `linksData` 数组 |
+| 入学清单数据 | `app.js` | `Checklist.items` 数组 |
 | 官方链接前缀 | `app.js` | `official` 对象 |
 | 目录导航项 | `index.html` | `.toc-panel` 内的 `.toc-nav` |
-| 留言墙初始词 | `app.js` | `initialWords` 数组 |
-| 词云最大条数 | `app.js` | `MAX_WORDS` 常量 |
 | 数字动画目标值 | `index.html` | `.stat-num` 的 `data-count` 属性 |
 | 颜色主题 | `styles.css` | `:root` 里的 CSS 变量 |
 | 响应式断点 | `styles.css` | 媒体查询区块 |
@@ -167,7 +179,7 @@ lzu-freshman-guide/
 - [ ] 搜索功能正常
 - [ ] 筛选功能正常
 - [ ] 目录导航弹窗正常
-- [ ] 留言墙提交 + 词云更新正常
+- [ ] 入学准备清单勾选和进度正常
 - [ ] 回到顶部按钮正常
 - [ ] 所有外链可点击跳转正常
 - [ ] 图片全部加载成功
@@ -206,6 +218,20 @@ lzu-freshman-guide/
 
 ## 更新日志
 
+### 2026-07-21 · 入学准备清单 + 全面优化
+
+- 将留言墙替换为更实用的 **入学准备清单** 模块（7 大分类 72 项）
+- 清单支持勾选、分类筛选、进度跟踪、本地存储
+- 调整板块顺序：清单移至资源链接集前面
+- 更新证件材料类和 App 推荐类清单内容
+- 更新快递地址攻略
+- CSS 变量系统优化，统一管理样式变量
+- JavaScript 模块化重构（Utils、Security、Checklist 等模块）
+- 安全加固：XSS 过滤、输入验证、CSP 响应头
+- 性能优化：防抖节流、will-change、contain 属性
+- 新增 Vite 构建配置和 Serverless API 文件
+- SEO 增强：结构化数据、移动端适配
+
 ### 2026-07-20 · 深蓝学院风全面升级
 
 - 设计风格从「温暖活力风」切换为「深蓝学院风」
@@ -233,5 +259,6 @@ MIT License — 仅供学习交流使用，请勿用于商业用途。
 
 ---
 
-> **简单可靠比花哨功能重要。** 这是给新生看的实用工具，不是技术炫技项目。
+> **简单可靠比花哨功能重要。**
+> 这是给新生看的实用工具，不是技术炫技项目。
 > 互动功能是体验增强，核心内容的准确性永远是第一位的。
