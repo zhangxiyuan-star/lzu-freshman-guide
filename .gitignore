@@ -1,8 +1,9 @@
-﻿# 部署包，不上传
+# 部署包，不上传
 *.zip
-# npm
+# npm / node
 node_modules/
-package.json
+package-lock.json
+# pnpm
 pnpm-lock.yaml
 pnpm-workspace.yaml
 # macOS
@@ -17,3 +18,28 @@ Thumbs.db
 *.py
 # TRAE IDE
 .trae/
+
+# ---- 环境变量（重要！密钥文件绝不能提交） ----
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.staging
+
+# ---- 构建产物 ----
+dist/
+build/
+.vite/
+
+# ---- 日志 ----
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- 编辑器临时文件 ----
+*.swp
+*.swo
+*~

@@ -1,0 +1,17 @@
+{
+  "name": "lzu-freshman-guide",
+  "version": "1.0.0",
+  "description": "兰州大学新生入学手册",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": ["lzu", "freshman", "guide"],
+  "author": "LZU学生自制",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
